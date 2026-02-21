@@ -1,16 +1,98 @@
 ---
+import "../styles/wedding-page.css";
 
+import { Image } from "astro:assets";
+
+import Frame from "../images/Images/Frame.png";
+import FirstPhoto from "../images/Images/FirstPhoto.png";
+import SecondPhoto from "../images/Images/SecondPhoto.png";
+import GradientOval from "../images/Images/GradientOval.png";
+import Cloud from "../images/Images/Cloud.png";
+import Bela from "../images/Images/Bela.png";
+import Habib from "../images/Images/Habib.png";
+import OvalFrame from "../images/Images/OvalFrame.png";
+
+import ImageGallery from "../components/ImageGallery.astro";
+import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<section class="scroll-area">
+    <div class="content-size-fitter">
+        <div class="content-container">
+            <Image src={SecondPhoto} class="photo-2 layer l12" alt="loading" />
+            <Image src={Cloud} class="cloud-2 layer l11" alt="loading" />
+            <Image src={Frame} class="frame-3 layer l10" alt="loading" />
+            <Image src={Cloud} class="cloud-1 layer l9" alt="loading" />
+            <Image src={Frame} class="frame-2 layer l8" alt="loading" />
+            <Image src={GradientOval} class="gradient-2 layer l7" alt="loading" />
+            <div class="surah-text layer l6">
+                <p>Lorem Ipsum Dolor Sit Amet</p>
+                <p>Lorem Ipsum Dolor Sit Amet</p>
+                <p>Lorem Ipsum Dolor Sit Amet</p>
+                <p>Lorem Ipsum Dolor Sit Amet</p>
+                <p>Lorem Ipsum Dolor Sit Amet</p>
+                <p>Lorem Ipsum Dolor Sit Amet</p>
+                <p>Lorem Ipsum Dolor Sit Amet</p>
+            </div>
+            <Image src={OvalFrame} class="oval-frame layer l5" alt="loading" />
+            <Image src={FirstPhoto} class="photo-1 layer l4" alt="loading" />
+            <Image src={Frame} class="frame-1 layer l3" alt="loading" />
+            <Image src={GradientOval} class="gradient-1 layer l2" alt="loading" />
+            <div class="title-text layer l1">
+                <p>We invite you to</p>
+                <p>The Wedding of</p>
+                <p class="wedding-name">Bela & Habib</p>
+                <p>04.04.2026</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ImageGallery />
+
+<RSVPMessageBoard />
+
+<script type="module" client:load>
+    import {
+        utils,
+        stagger,
+        onScroll,
+        createTimeline,
+        animate,
+    } from "https://esm.run/animejs@4.2.2";
+
+    var opacityGone = 0;
+    var zGone = 100;
+    var durationGone = 200;
+    console.log("Anime utils: ", utils);
+
+    utils.set(".layer", {
+        z: stagger(-200, {from: 'last', start: 200}),
+    });
+
+    utils.set(".l1", {
+        z: 0,
+    });
+
+    createTimeline({
+        defaults: {
+            ease: "easeInOutSine",
+            duration: 500,
+            composition: "blend",
+        },
+        autoplay: onScroll({
+            target: ".scroll-area",
+            enter: "top top",
+            leave: "bottom bottom",
+            sync: 0.5,
+            debug: true,
+        }),
+    })
+    .add(
+        ".layer",
+        {
+            z: '+=2200',
+        },
+        0
+    );
+</script>
