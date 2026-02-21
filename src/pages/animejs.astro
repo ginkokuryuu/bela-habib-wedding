@@ -1,0 +1,255 @@
+---
+import "../styles/card.css";
+---
+
+<section class="spacer"></section>
+<section class="sticky-container">
+    <div class="sticky-content">
+        <div class="stack">
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+            <div class="card">
+                <div class="front"></div><div class="back"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="spacer"></section>
+
+<script type="module" client:load>
+    import {
+        utils,
+        stagger,
+        onScroll,
+        createTimeline,
+        animate,
+    } from "https://esm.run/animejs@4.2.2";
+
+    console.log("Anime utils: ", utils);
+
+    utils.set(".card", {
+        rotate: () => utils.random(-10, 10, 1),
+        rotateZ: () => utils.random(-1, 1, 2),
+        y: () => utils.random(-2, 2),
+        z: stagger(1),
+    });
+
+    const brightness = (v) => `brightness(${v})`;
+
+    utils.set(".front", {
+        filter: stagger([0.75, 1], { modifier: brightness }),
+    });
+    utils.set(".back", {
+        filter: stagger([1, 1], { modifier: brightness }),
+    });
+
+    createTimeline({
+        defaults: {
+            ease: "linear",
+            duration: 500,
+            composition: "blend",
+        },
+        autoplay: onScroll({
+            target: ".sticky-container",
+            enter: "top top",
+            leave: "bottom bottom",
+            sync: 0.5,
+            debug: true,
+        }),
+    })
+        .add(
+            ".stack",
+            {
+                rotateY: [-180, 0],
+                ease: "in(2)",
+            }
+        )
+        .add(
+            ".card",
+            {
+                rotate: 0,
+                rotateZ: {
+                    to: stagger([0, -360], { from: "last" }),
+                    ease: "inOut(2)",
+                },
+                y: { to: "-60%", duration: 400 },
+                transformOrigin: ["50% 100%", "50% 50%"],
+                delay: stagger(1, { from: "first" }),
+            }
+        )
+        .add(
+            ".stack",
+            {
+                rotateY: [0, -180],
+                ease: "in(2)",
+            }
+        )
+        .init();
+
+    utils.$(".card").forEach(($card) => {
+        $card.onmouseenter = () =>
+            animate($card, {
+                y: "-70%",
+                duration: 350,
+                composition: "blend",
+            });
+        $card.onmouseleave = () =>
+            animate($card, {
+                y: "-60%",
+                duration: 750,
+                composition: "blend",
+                delay: 75,
+            });
+    });
+</script>
