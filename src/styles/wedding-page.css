@@ -13,6 +13,8 @@ body {
   justify-content: center;
   overflow: hidden;
   background-color: #848b79;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .content-container {
@@ -58,6 +60,9 @@ section.spacer {
   height: auto;
   transform-style: preserve-3d;
   position: absolute;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .title-text {

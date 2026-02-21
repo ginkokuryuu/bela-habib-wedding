@@ -15,15 +15,15 @@ const imageList = Object.entries(images).map(([path, module]: [string, any]) => 
     <h2 class="gallery-title">Pre-Wedding Gallery</h2>
     <div class="gallery-container" id="galleryContainer">
       <div class="gallery-scroll" id="galleryScroll">
-        {/* Triple the images for infinite scroll effect */}
-        {[...imageList, ...imageList, ...imageList].map((image, index) => (
+        {/* Double the images for infinite scroll effect */}
+        {[...imageList, ...imageList].map((image, index) => (
           <div class="gallery-item" data-index={index % imageList.length} data-real-index={index}>
             <Image
               src={image.src}
               alt={image.alt}
               class="gallery-image"
-              width={1280}
-              height={1920}
+              width={640}
+              height={960}
               loading="lazy"
               decoding="async"
             />
@@ -74,7 +74,7 @@ const imageList = Object.entries(images).map(([path, module]: [string, any]) => 
     const lightboxContent = document.getElementById('lightboxContent');
     
     let currentIndex = 0;
-    const totalImages = galleryItems.length / 3; // Divide by 3 because we tripled the images
+    const totalImages = galleryItems.length / 2; // Divide by 2 because we doubled the images
     
     // Calculate item width dynamically based on current layout
     function getItemWidth() {
@@ -101,21 +101,20 @@ const imageList = Object.entries(images).map(([path, module]: [string, any]) => 
     
     function handleInfiniteScroll() {
       if (!galleryContainer || isHandlingScroll) return;
-      
+
       const itemWidth = getItemWidth();
       const scrollLeft = galleryContainer.scrollLeft;
       const oneSetWidth = totalImages * itemWidth;
-      // Larger threshold - only jump when very close to edge
       const threshold = itemWidth * 4;
-      
-      // If scrolled past the middle set into the third set, jump back to middle
-      if (scrollLeft >= oneSetWidth * 2 - threshold) {
+
+      // If scrolled near the end of set 2, jump back to same position in set 1
+      if (scrollLeft >= oneSetWidth - threshold) {
         isHandlingScroll = true;
         galleryContainer.scrollLeft = scrollLeft - oneSetWidth;
         lastScrollLeft = galleryContainer.scrollLeft;
         setTimeout(() => { isHandlingScroll = false; }, 100);
       }
-      // If scrolled before the middle set into the first set, jump forward to middle
+      // If scrolled near the start of set 1, jump forward to same position in set 2
       else if (scrollLeft <= threshold) {
         isHandlingScroll = true;
         galleryContainer.scrollLeft = scrollLeft + oneSetWidth;
@@ -126,13 +125,13 @@ const imageList = Object.entries(images).map(([path, module]: [string, any]) => 
       }
     }
     
-    // Set initial scroll position to the middle set (after layout is ready)
+    // Set initial scroll position (after layout is ready)
     setTimeout(() => {
       if (galleryContainer) {
         const itemWidth = getItemWidth();
-        const middleSetStart = totalImages * itemWidth;
-        galleryContainer.scrollLeft = middleSetStart;
-        lastScrollLeft = middleSetStart;
+        const initialPosition = itemWidth * 5; // Start a few items in so backward scroll works
+        galleryContainer.scrollLeft = initialPosition;
+        lastScrollLeft = initialPosition;
       }
     }, 100);
     
@@ -154,42 +153,46 @@ const imageList = Object.entries(images).map(([path, module]: [string, any]) => 
     
     startScrollCheck();
     
-    // ========== AUTO SCROLL ==========
-    let autoScrollInterval: number | null = null;
+    // ========== AUTO SCROLL (using requestAnimationFrame) ==========
+    let autoScrollRAF: number | null = null;
     let userInteracting = false;
     let autoScrollResumeTimeout: number | null = null;
     const autoScrollSpeed = 1; // pixels per frame
     const autoScrollDelay = 3000; // 3 seconds delay before auto scroll resumes
-    
-    function startAutoScroll() {
-      if (autoScrollInterval) return;
-      autoScrollInterval = window.setInterval(() => {
-        if (!galleryContainer || userInteracting) return;
-        galleryContainer.scrollLeft += autoScrollSpeed;
-      }, 16); // ~60fps
+
+    function autoScrollLoop() {
+      if (!galleryContainer || userInteracting) {
+        autoScrollRAF = requestAnimationFrame(autoScrollLoop);
+        return;
+      }
+      galleryContainer.scrollLeft += autoScrollSpeed;
+      autoScrollRAF = requestAnimationFrame(autoScrollLoop);
     }
-    
+
+    function startAutoScroll() {
+      if (autoScrollRAF) return;
+      autoScrollRAF = requestAnimationFrame(autoScrollLoop);
+    }
+
     function stopAutoScroll() {
-      if (autoScrollInterval) {
-        clearInterval(autoScrollInterval);
-        autoScrollInterval = null;
+      if (autoScrollRAF) {
+        cancelAnimationFrame(autoScrollRAF);
+        autoScrollRAF = null;
       }
     }
-    
+
     function pauseAutoScroll() {
       userInteracting = true;
-      stopAutoScroll();
-      
+
       if (autoScrollResumeTimeout) {
         clearTimeout(autoScrollResumeTimeout);
       }
-      
+
       autoScrollResumeTimeout = window.setTimeout(() => {
         userInteracting = false;
-        startAutoScroll();
       }, autoScrollDelay);
     }
-    
+
     // Start auto scroll after page load
     setTimeout(startAutoScroll, 1000);
     
