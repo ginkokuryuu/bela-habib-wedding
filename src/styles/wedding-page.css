@@ -62,6 +62,10 @@ section.spacer {
   will-change: transform;
 }
 
+.gradient-oval {
+  width: 150%;
+}
+
 .layer img {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;

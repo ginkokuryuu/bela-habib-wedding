@@ -11,6 +11,7 @@ import Cloud from "../images/Images/Cloud.png";
 import Bela from "../images/Images/Bela.png";
 import Habib from "../images/Images/Habib.png";
 import OvalFrame from "../images/Images/OvalFrame.png";
+import GradientCircle from "../images/Images/GradientCircle.png";
 
 import ImageGallery from "../components/ImageGallery.astro";
 import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
@@ -21,8 +22,9 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
         <div class="content-container">
             <Image src={SecondPhoto} class="photo-2 layer l7" alt="loading" />
             <Image src={Frame} class="frame-3 layer l6" alt="loading" />
-            <Image src={Cloud} class="cloud-1 layer l5" alt="loading" />
+            <Image src={Cloud} class="cloud-2 layer l5" alt="loading" />
             <Image src={Frame} class="frame-2 layer l4" alt="loading" />
+            <Image src={GradientCircle} class="gradient-circle layer l3" alt="loading" />
             <div class="surah-text title-text layer l3">
                 <p>Lorem Ipsum Dolor Sit Amet</p>
                 <p>Lorem Ipsum Dolor Sit Amet</p>
@@ -35,7 +37,7 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
             <Image src={OvalFrame} class="oval-frame layer l3" alt="loading" />
             <Image src={FirstPhoto} class="photo-1 layer l2" alt="loading" />
             <Image src={Frame} class="frame-1 layer l2" alt="loading" />
-            <Image src={Cloud} class="cloud-1 layer l1" alt="loading" />
+            <Image src={GradientOval} class="gradient-oval layer l1" alt="loading" />
             <div class="title-text layer l1">
                 <p>We invite you to</p>
                 <p>The Wedding of</p>
@@ -64,16 +66,28 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
     var durationGone = 200;
     console.log("Anime utils: ", utils);
 
-    utils.set(".layer", {
-        z: stagger(-200, {from: 'last', start: 200}),
-    });
+    utils.set(".l1", {z: 0,});
+    utils.set(".l2", {z: -200,});
+    utils.set(".l3", {z: -400,});
+    utils.set(".l4", {z: -600,});
+    utils.set(".l5", {z: -800,});
+    utils.set(".l6", {z: -1000,});
+    utils.set(".l7", {z: -1200,});
 
     utils.set(".cloud-1", {
         y: 100,
     });
+    
+    utils.set(".cloud-2", {
+        y: 300,
+    });
 
     utils.set(".title-text", {
-        y: 300,
+        y: 200,
+    });
+
+    utils.set(".gradient-oval", {
+        y: 200,
     });
 
     utils.set(".l1", {
