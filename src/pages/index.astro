@@ -19,13 +19,11 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
 <section class="scroll-area">
     <div class="content-size-fitter">
         <div class="content-container">
-            <Image src={SecondPhoto} class="photo-2 layer l12" alt="loading" />
-            <Image src={Cloud} class="cloud-2 layer l11" alt="loading" />
-            <Image src={Frame} class="frame-3 layer l10" alt="loading" />
-            <Image src={Cloud} class="cloud-1 layer l9" alt="loading" />
-            <Image src={Frame} class="frame-2 layer l8" alt="loading" />
-            <Image src={GradientOval} class="gradient-2 layer l7" alt="loading" />
-            <div class="surah-text layer l6">
+            <Image src={SecondPhoto} class="photo-2 layer l7" alt="loading" />
+            <Image src={Frame} class="frame-3 layer l6" alt="loading" />
+            <Image src={Cloud} class="cloud-1 layer l5" alt="loading" />
+            <Image src={Frame} class="frame-2 layer l4" alt="loading" />
+            <div class="surah-text title-text layer l3">
                 <p>Lorem Ipsum Dolor Sit Amet</p>
                 <p>Lorem Ipsum Dolor Sit Amet</p>
                 <p>Lorem Ipsum Dolor Sit Amet</p>
@@ -34,10 +32,10 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
                 <p>Lorem Ipsum Dolor Sit Amet</p>
                 <p>Lorem Ipsum Dolor Sit Amet</p>
             </div>
-            <Image src={OvalFrame} class="oval-frame layer l5" alt="loading" />
-            <Image src={FirstPhoto} class="photo-1 layer l4" alt="loading" />
-            <Image src={Frame} class="frame-1 layer l3" alt="loading" />
-            <Image src={GradientOval} class="gradient-1 layer l2" alt="loading" />
+            <Image src={OvalFrame} class="oval-frame layer l3" alt="loading" />
+            <Image src={FirstPhoto} class="photo-1 layer l2" alt="loading" />
+            <Image src={Frame} class="frame-1 layer l2" alt="loading" />
+            <Image src={Cloud} class="cloud-1 layer l1" alt="loading" />
             <div class="title-text layer l1">
                 <p>We invite you to</p>
                 <p>The Wedding of</p>
@@ -70,15 +68,26 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
         z: stagger(-200, {from: 'last', start: 200}),
     });
 
+    utils.set(".cloud-1", {
+        y: 100,
+    });
+
+    utils.set(".title-text", {
+        y: 300,
+    });
+
     utils.set(".l1", {
         z: 0,
+    });
+
+    utils.set(".surah-text", {
+        opacity: 0,
     });
 
     createTimeline({
         defaults: {
             ease: "easeInOutSine",
             duration: 500,
-            composition: "blend",
         },
         autoplay: onScroll({
             target: ".scroll-area",
@@ -88,10 +97,98 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
         }),
     })
     .add(
-        ".layer",
+        ".l1",
         {
-            z: '+=2200',
+            opacity: 0,
+            z: '+=200',
+            duration: 100
         },
         0
+    )
+    .label("fadeOut1")
+    .add(
+        ".l2",
+        {
+            opacity: 0,
+            z: '+=200',
+            duration: 100
+        },
+        "fadeOut1"
+    )
+    .add(
+        [".l3", ".l4", ".l5", ".l6", ".l7", ".l8", ".l9"],
+        {
+            z: '+=200',
+            opacity: 1
+        },
+        "fadeOut1"
+    )
+    .label("fadeOut2")
+    .add(
+        ".l3",
+        {
+            opacity: 0,
+            z: '+=200',
+            duration: 100
+        },
+        "fadeOut2"
+    )
+    .add(
+        [".l4", ".l5", ".l6", ".l7", ".l8", ".l9"],
+        {
+            z: '+=200'
+        },
+        "fadeOut2"
+    )
+    .label("fadeOut3")
+    .add(
+        ".l4",
+        {
+            opacity: 0,
+            z: '+=200',
+            duration: 100
+        },
+        "fadeOut3"
+    )
+    .add(
+        [".l5", ".l6", ".l7", ".l8", ".l9"],
+        {
+            z: '+=200'
+        },
+        "fadeOut3"
+    )
+    .label("fadeOut4")
+    .add(
+        ".l5",
+        {
+            opacity: 0,
+            z: '+=200',
+            duration: 100
+        },
+        "fadeOut4"
+    )
+    .add(
+        [".l6", ".l7", ".l8", ".l9"],
+        {
+            z: '+=200'
+        },
+        "fadeOut4"
+    )
+    .label("fadeOut5")
+    .add(
+        ".l6",
+        {
+            opacity: 0,
+            z: '+=200',
+            duration: 100
+        },
+        "fadeOut5"
+    )
+    .add(
+        [".l7", ".l8", ".l9"],
+        {
+            z: '+=200'
+        },
+        "fadeOut5"
     );
 </script>
