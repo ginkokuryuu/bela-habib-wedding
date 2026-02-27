@@ -6,12 +6,12 @@ import { Image } from "astro:assets";
 import Frame from "../images/Images/Frame.png";
 import FirstPhoto from "../images/Images/FirstPhoto.png";
 import SecondPhoto from "../images/Images/SecondPhoto.png";
-import GradientOval from "../images/Images/GradientOval.png";
 import Cloud from "../images/Images/Cloud.png";
-import Bela from "../images/Images/Bela.png";
-import Habib from "../images/Images/Habib.png";
 import OvalFrame from "../images/Images/OvalFrame.png";
 import GradientCircle from "../images/Images/GradientCircle.png";
+import CoverFrame from "../images/Images/CoverFrame.png";
+import CoverFlower1 from "../images/Images/CoverFlower1.png";
+import CoverFlower2 from "../images/Images/CoverFlower2.png";
 
 import ImageGallery from "../components/ImageGallery.astro";
 import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
@@ -20,12 +20,16 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
 <section class="scroll-area">
     <div class="content-size-fitter">
         <div class="content-container">
-            <Image src={SecondPhoto} class="photo-2 layer l7" alt="loading" />
-            <Image src={Frame} class="frame-3 layer l6" alt="loading" />
-            <Image src={Cloud} class="cloud-2 layer l5" alt="loading" />
-            <Image src={Frame} class="frame-2 layer l4" alt="loading" />
-            <Image src={GradientCircle} class="gradient-circle layer l3" alt="loading" />
-            <div class="surah-text title-text layer l3">
+            <Image src={SecondPhoto} class="photo-2 layer l6" alt="loading" />
+            <Image src={Frame} class="frame-3 layer l5" alt="loading" />
+            <Image src={Cloud} class="cloud-2 layer l4" alt="loading" />
+            <Image src={Frame} class="frame-2 layer l3" alt="loading" />
+            <Image
+                src={GradientCircle}
+                class="gradient-circle layer l2"
+                alt="loading"
+            />
+            <div class="surah-text layer l2">
                 <p>Lorem Ipsum Dolor Sit Amet</p>
                 <p>Lorem Ipsum Dolor Sit Amet</p>
                 <p>Lorem Ipsum Dolor Sit Amet</p>
@@ -34,16 +38,25 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
                 <p>Lorem Ipsum Dolor Sit Amet</p>
                 <p>Lorem Ipsum Dolor Sit Amet</p>
             </div>
-            <Image src={OvalFrame} class="oval-frame layer l3" alt="loading" />
-            <Image src={FirstPhoto} class="photo-1 layer l2" alt="loading" />
-            <Image src={Frame} class="frame-1 layer l2" alt="loading" />
-            <Image src={GradientOval} class="gradient-oval layer l1" alt="loading" />
-            <div class="title-text layer l1">
-                <p>We invite you to</p>
-                <p>The Wedding of</p>
-                <p class="wedding-name">Bela & Habib</p>
-                <p>04.04.2026</p>
+            <Image src={OvalFrame} class="oval-frame layer l2" alt="loading" />
+            <Image src={FirstPhoto} class="photo-1 layer l1" alt="loading" />
+            <Image src={Frame} class="frame-1 layer l1" alt="loading" />
+        </div>
+        <div class="cover">
+            <div class="title-container">
+                <div class="title-text">
+                    <p class="invitee-name">Dear Guest, you are invited to</p>
+                    <p>The wedding of</p>
+                    <p class="wedding-name bela">Bela</p>
+                    <p class="wedding-name and">&</p>
+                    <p class="wedding-name habib">Habib</p>
+                    <p>Saturday, 4.4.2026</p>
+                </div>
             </div>
+
+            <Image src={CoverFrame} class="cover-frame" alt="loading" />
+            <Image src={CoverFlower1} class="cover-flower-1" alt="loading" />
+            <Image src={CoverFlower2} class="cover-flower-2" alt="loading" />
         </div>
     </div>
 </section>
@@ -66,28 +79,19 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
     var durationGone = 200;
     console.log("Anime utils: ", utils);
 
-    utils.set(".l1", {z: 0,});
-    utils.set(".l2", {z: -200,});
-    utils.set(".l3", {z: -400,});
-    utils.set(".l4", {z: -600,});
-    utils.set(".l5", {z: -800,});
-    utils.set(".l6", {z: -1000,});
-    utils.set(".l7", {z: -1200,});
+    utils.set(".l1", { z: 0 });
+    utils.set(".l2", { z: -200 });
+    utils.set(".l3", { z: -400 });
+    utils.set(".l4", { z: -600 });
+    utils.set(".l5", { z: -800 });
+    utils.set(".l6", { z: -1200 });
 
     utils.set(".cloud-1", {
         y: 100,
     });
-    
+
     utils.set(".cloud-2", {
         y: 300,
-    });
-
-    utils.set(".title-text", {
-        y: 200,
-    });
-
-    utils.set(".gradient-oval", {
-        y: 200,
     });
 
     utils.set(".l1", {
@@ -96,6 +100,24 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
 
     utils.set(".surah-text", {
         opacity: 0,
+    });
+
+    animate([".rsvp-title", ".rsvp-form-container"], {
+        x: ["-100%", "0%"],
+        duration: 2000,
+        ease: "inOutQuad",
+        autoplay: onScroll({
+            container: ".scroll-container",
+        }),
+    });
+
+    animate([".gallery-title", ".gallery-container"], {
+        opacity: [0, 1],
+        duration: 2000,
+        ease: "inOutQuad",
+        autoplay: onScroll({
+            container: ".scroll-container",
+        }),
     });
 
     createTimeline({
@@ -110,99 +132,191 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
             sync: 0.5,
         }),
     })
-    .add(
-        ".l1",
-        {
-            opacity: 0,
-            z: '+=100',
-            duration: 1
-        },
-        0
-    )
-    .label("fadeOut1")
-    .add(
-        ".l2",
-        {
-            opacity: 0,
-            z: '+=200',
-            duration: 100
-        },
-        "fadeOut1"
-    )
-    .add(
-        [".l3", ".l4", ".l5", ".l6", ".l7", ".l8", ".l9"],
-        {
-            z: '+=200',
-            opacity: 1
-        },
-        "fadeOut1"
-    )
-    .label("fadeOut2")
-    .add(
-        ".l3",
-        {
-            opacity: 0,
-            z: '+=200',
-            duration: 100
-        },
-        "fadeOut2"
-    )
-    .add(
-        [".l4", ".l5", ".l6", ".l7", ".l8", ".l9"],
-        {
-            z: '+=200'
-        },
-        "fadeOut2"
-    )
-    .label("fadeOut3")
-    .add(
-        ".l4",
-        {
-            opacity: 0,
-            z: '+=200',
-            duration: 100
-        },
-        "fadeOut3"
-    )
-    .add(
-        [".l5", ".l6", ".l7", ".l8", ".l9"],
-        {
-            z: '+=200'
-        },
-        "fadeOut3"
-    )
-    .label("fadeOut4")
-    .add(
-        ".l5",
-        {
-            opacity: 0,
-            z: '+=200',
-            duration: 100
-        },
-        "fadeOut4"
-    )
-    .add(
-        [".l6", ".l7", ".l8", ".l9"],
-        {
-            z: '+=200'
-        },
-        "fadeOut4"
-    )
-    .label("fadeOut5")
-    .add(
-        ".l6",
-        {
-            opacity: 0,
-            z: '+=200',
-            duration: 100
-        },
-        "fadeOut5"
-    )
-    .add(
-        [".l7", ".l8", ".l9"],
-        {
-            z: '+=200'
-        },
-        "fadeOut5"
-    );
+        .add(
+            ".cover",
+            {
+                top: "-100%",
+                duration: 100,
+            },
+            0,
+        )
+        .label("coverDone")
+        .add(
+            ".l1",
+            {
+                z: "+=0",
+                duration: 100,
+            },
+            "coverDone",
+        )
+        .label("wait1")
+        .add(
+            ".l1",
+            {
+                opacity: 0,
+                z: "+=200",
+                duration: 100,
+            },
+            "wait1",
+        )
+        .add(
+            [".l2", ".l3", ".l4", ".l5", ".l6", ".l7", ".l8", ".l9"],
+            {
+                z: "+=200",
+                opacity: 1,
+            },
+            "wait1",
+        )
+        .label("fadeOut1")
+        .add(
+            ".l2",
+            {
+                z: "+=0",
+                duration: 100,
+            },
+            "fadeOut1",
+        )
+        .label("wait2")
+        .add(
+            ".l2",
+            {
+                opacity: 0,
+                z: "+=200",
+                duration: 100,
+            },
+            "wait2",
+        )
+        .add(
+            [".l3", ".l4", ".l5", ".l6", ".l7", ".l8", ".l9"],
+            {
+                z: "+=200",
+                opacity: 1,
+            },
+            "wait2",
+        )
+        .add(
+            [".layer"],
+            {
+                x: "-=200",
+                y: "-=100",
+                rotateZ: 2
+            },
+            "wait2",
+        )
+        .label("fadeOut2")
+        .add(
+            ".l3",
+            {
+                opacity: 0,
+                z: "+=200",
+            },
+            "fadeOut2",
+        )
+        .add(
+            [".l4", ".l5", ".l6", ".l7", ".l8", ".l9"],
+            {
+                z: "+=200",
+            },
+            "fadeOut2",
+        )
+        .add(
+            [".layer"],
+            {
+                x: "+=400",
+                y: "-=100",
+                rotateZ: -3
+            },
+            "fadeOut2",
+        )
+        .label("fadeOut3")
+        .add(
+            ".l4",
+            {
+                opacity: 0,
+                z: "+=200",
+            },
+            "fadeOut3",
+        )
+        .add(
+            [".l5", ".l6", ".l7", ".l8", ".l9"],
+            {
+                z: "+=200",
+            },
+            "fadeOut3",
+        )
+        .add(
+            [".layer"],
+            {
+                x: 0,
+                y: "+=200",
+                rotateZ: 0
+            },
+            "fadeOut3",
+        )
+        .label("fadeOut4")
+        .add(
+            ".l1",
+            {
+                z: "+=0",
+                duration: 100,
+            },
+            "fadeOut4",
+        )
+        .label("both-photo-ready")
+        .add(
+            ".l6",
+            {
+                x: -900,
+                y: 200,
+                scale: 1.5
+            },
+            "both-photo-ready",
+        )
+        .label("bela-ready")
+        .add(
+            ".l1",
+            {
+                z: "+=0",
+                duration: 100,
+            },
+            "bela-ready",
+        )
+        .label("bela-done")
+        .add(
+            ".l6",
+            {
+                x: 800,
+                y: [200, 0, 200],
+                scale: [1.5, 1, 1.5]
+            },
+            "bela-done",
+        )
+        .label("habib-ready")
+        .add(
+            ".l1",
+            {
+                z: "+=0",
+                duration: 100,
+            },
+            "habib-ready",
+        ).
+        label("habib-done")
+        .add(
+            ".l6",
+            {
+                x: 0,
+                y: 0,
+                scale: 1,
+            },
+            "habib-done",
+        ).
+        label("back-to-both")
+        .add(
+            ".l1",
+            {
+                z: "+=0",
+                duration: 200,
+            },
+            "back-to-both",
+        );
 </script>
