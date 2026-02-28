@@ -174,8 +174,8 @@ const formattedTime = `${weddingTime} - ${endTimeStr} WIB`;
     flex-direction: column;
     align-items: center;
     background-color: #efefef;
-    padding-top: 10%;
-    padding-bottom: 5%;
+    padding-top: calc(var(--calculated-width) * 0.1);
+    padding-bottom: calc(var(--calculated-width) * 0.05);
     container-type: inline-size;
   }
 
@@ -232,9 +232,10 @@ const formattedTime = `${weddingTime} - ${endTimeStr} WIB`;
   .venue-section {
     margin-top: 6%;
     padding-top: 6%;
+    margin-left: 5%;
+    margin-right: 5%;
     border-top: 1px solid #ccc;
     text-align: center;
-    width: 100%;
   }
 
   .venue-title {
@@ -246,23 +247,23 @@ const formattedTime = `${weddingTime} - ${endTimeStr} WIB`;
   }
 
   .venue-name {
-    font-size: 3cqi;
+    font-size: 3.5cqi;
     font-weight: 400;
     color: #232323;
     margin: 0 0 1% 0;
   }
 
   .venue-address {
-    font-size: 2cqi;
+    font-size: 2.5cqi;
     color: #666;
-    margin: 0 0 3% 0;
+    margin: 3% 3% 0;
     line-height: 1.4;
   }
 
   .venue-date {
     font-size: 2.5cqi;
     color: #232323;
-    margin: 0 0 1% 0;
+    margin: 2% 0 1% 0;
   }
 
   .venue-time {

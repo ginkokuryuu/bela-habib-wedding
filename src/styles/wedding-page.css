@@ -6,6 +6,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', sans-serif;
+  
+  --calculated-width: min(100vw, 50vh);
 }
 
 @font-face {
@@ -186,11 +188,13 @@ section.spacer {
 
 .bela-info{
   opacity: 0;
-  font-size: 3cqi;
-  top: 27%;
-  left: 20%;
+  font-size: 4cqi;
+  top: 20%;
+  right: 0%;
+  width: 80%;
+  padding-right: 10%;
   position: absolute;
-  text-align: center;
+  text-align: right;
 }
 
 .bela-info p{
@@ -200,23 +204,27 @@ section.spacer {
 
 .bela-info-name{
   font-family: 'palmaton';
-  font-size: 8cqi;
+  font-size: 10cqi;
   margin-top: 0.2em !important;
   margin-bottom: 0.5em !important;
 }
 
 .bela-info-detail{
   font-style: italic;
+  font-weight: 300;
+  font-size: 3cqi;
   margin-bottom: 0.7em !important;
 }
 
 .habib-info{
   opacity: 0;
-  font-size: 3cqi;
-  top: 27%;
-  left:8%;
+  font-size: 4cqi;
+  top: 20%;
+  left: 0%;
+  width: 80%;
+  padding-left: 10%;
   position: absolute;
-  text-align: center;
+  text-align: left;
 }
 
 .habib-info p{
@@ -226,19 +234,82 @@ section.spacer {
 
 .habib-info-name{
   font-family: 'palmaton';
-  font-size: 8cqi;
+  font-size: 10cqi;
   margin-top: 0.2em !important;
   margin-bottom: 0em !important;
 }
 
 .habib-info-habib-y{
   font-family: 'palmaton';
-  font-size: 8cqi;
+  font-size: 10cqi;
   margin-top: -0.2em !important;
   margin-bottom: 0.5em !important;
 }
 
 .habib-info-detail{
   font-style: italic;
+  font-weight: 300;
+  font-size: 3cqi;
   margin-bottom: 0.7em !important;
+}
+
+
+.animated-wedding-info{
+  font-family: 'Cormorant', serif;
+  position: absolute;
+  font-weight: 400;
+  width: min(100vw, 50vh);
+  height: 100%;
+  container-type: size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.awi-date{
+  position: absolute;
+  text-align: center;
+  top: 18%;
+  opacity: 0;
+}
+
+.awi-date-day{
+  font-family: 'palmaton';
+  font-size: 12cqi;
+  font-weight: 400;
+  margin-block-start: 0em !important;
+  margin-block-end: 0em !important;
+}
+
+.awi-date-date{
+  font-size: 5cqi;
+  margin-block-start: 0.5em !important;
+  margin-block-end: 0.5em !important;
+}
+
+.awi-place{
+  position: absolute;
+  text-align: center;
+  top: 18%;
+  opacity: 0;
+}
+
+.awi-place p{
+  margin-block-start: 0em !important;
+  margin-block-end: 0em !important;
+}
+
+.awi-place-at{
+  font-size: 5cqi;
+}
+
+.awi-place-name{
+  font-family: 'palmaton';
+  font-size: 11cqi;
+  font-weight: 400;
+}
+
+.awi-place-city{
+  font-size: 4cqi;
+  font-style: italic;
 }

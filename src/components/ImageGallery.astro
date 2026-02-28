@@ -397,8 +397,8 @@ const imageList = Object.entries(images).map(([path, module]: [string, any]) => 
     flex-direction: column;
     justify-content: center;
     container-type: inline-size;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    padding-top: calc(var(--calculated-width) * 0.05);
+    padding-bottom: calc(var(--calculated-width) * 0.05);
   }
   }
 
