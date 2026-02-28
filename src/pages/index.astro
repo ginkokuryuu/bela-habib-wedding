@@ -30,20 +30,21 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
                 alt="loading"
             />
             <div class="surah-text layer l2">
-                <p>Lorem Ipsum Dolor Sit Amet</p>
-                <p>Lorem Ipsum Dolor Sit Amet</p>
-                <p>Lorem Ipsum Dolor Sit Amet</p>
-                <p>Lorem Ipsum Dolor Sit Amet</p>
-                <p>Lorem Ipsum Dolor Sit Amet</p>
-                <p>Lorem Ipsum Dolor Sit Amet</p>
-                <p>Lorem Ipsum Dolor Sit Amet</p>
+                <p>
+                    "And of His signs is that He created for you from yourselves
+                    mates that you may find tranquillity in them; and He placed
+                    between you affection and mercy. Indeed in that are signs
+                    for a people who give thought."
+                </p>
+                <br />
+                <p>( QS. Ar-Rum 21 )</p>
             </div>
             <Image src={OvalFrame} class="oval-frame layer l2" alt="loading" />
             <Image src={FirstPhoto} class="photo-1 layer l1" alt="loading" />
             <Image src={Frame} class="frame-1 layer l1" alt="loading" />
         </div>
         <div class="cover">
-            <div class="title-container">
+            <div class="title-container title-content">
                 <div class="title-text">
                     <p class="invitee-name">Dear Guest, you are invited to</p>
                     <p>The wedding of</p>
@@ -54,9 +55,36 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
                 </div>
             </div>
 
-            <Image src={CoverFrame} class="cover-frame" alt="loading" />
-            <Image src={CoverFlower1} class="cover-flower-1" alt="loading" />
-            <Image src={CoverFlower2} class="cover-flower-2" alt="loading" />
+            <Image
+                src={CoverFrame}
+                class="cover-frame title-content"
+                alt="loading"
+            />
+            <Image
+                src={CoverFlower1}
+                class="cover-flower-1 title-content"
+                alt="loading"
+            />
+            <Image
+                src={CoverFlower2}
+                class="cover-flower-2 title-content"
+                alt="loading"
+            />
+        </div>
+        <div class="couple-info">
+            <div class="bela-info">
+                <p class="bela-info-name">dr. Delfitri Salsabela Budianti</p>
+                <p class="bela-info-detail">The First Daughter of</p>
+                <p class="bela-info-parent">Mr. Arief Budijanto (alm)</p>
+                <p class="bela-info-parent">& Mrs. Suciati</p>
+            </div>
+            <div class="habib-info">
+                <p class="habib-info-name">Nur Muhammad Husnul</p>
+                <p class="habib-info-habib-y">Habib Yahya</p>
+                <p class="habib-info-detail">The Fourth Son of</p>
+                <p class="habib-info-parent">Mr. Yahya Ali (alm)</p>
+                <p class="habib-info-parent">& Mrs. Titin Hartini Noer</p>
+            </div>
         </div>
     </div>
 </section>
@@ -103,7 +131,7 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
     });
 
     animate([".rsvp-title", ".rsvp-form-container"], {
-        x: ["-100%", "0%"],
+        opacity: [0, 1],
         duration: 2000,
         ease: "inOutQuad",
         autoplay: onScroll({
@@ -112,6 +140,24 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
     });
 
     animate([".gallery-title", ".gallery-container"], {
+        opacity: [0, 1],
+        duration: 2000,
+        ease: "inOutQuad",
+        autoplay: onScroll({
+            container: ".scroll-container",
+        }),
+    });
+
+    animate([".title-content"], {
+        opacity: [0, 1],
+        duration: 2000,
+        ease: "inOutQuad",
+        autoplay: onScroll({
+            container: ".scroll-container",
+        }),
+    });
+
+    animate([".messages-section"], {
         opacity: [0, 1],
         duration: 2000,
         ease: "inOutQuad",
@@ -151,13 +197,29 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
         )
         .label("wait1")
         .add(
+            [".l1", ".l2", ".l3", ".l4", ".l5", ".l6", ".l7", ".l8", ".l9"],
+            {
+                z: "-=200",
+            },
+            "wait1",
+        )
+        .label("easeInFirst")
+        .add(
+            [".l1", ".l2", ".l3", ".l4", ".l5", ".l6", ".l7", ".l8", ".l9"],
+            {
+                z: "+=200",
+            },
+            "easeInFirst",
+        )
+        .label("easeInAfter")
+        .add(
             ".l1",
             {
                 opacity: 0,
                 z: "+=200",
                 duration: 100,
             },
-            "wait1",
+            "easeInAfter",
         )
         .add(
             [".l2", ".l3", ".l4", ".l5", ".l6", ".l7", ".l8", ".l9"],
@@ -165,14 +227,14 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
                 z: "+=200",
                 opacity: 1,
             },
-            "wait1",
+            "easeInFieaseInAfterrst",
         )
         .label("fadeOut1")
         .add(
             ".l2",
             {
                 z: "+=0",
-                duration: 100,
+                duration: 300,
             },
             "fadeOut1",
         )
@@ -199,7 +261,7 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
             {
                 x: "-=200",
                 y: "-=100",
-                rotateZ: 2
+                rotateZ: 2,
             },
             "wait2",
         )
@@ -224,7 +286,7 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
             {
                 x: "+=400",
                 y: "-=100",
-                rotateZ: -3
+                rotateZ: -3,
             },
             "fadeOut2",
         )
@@ -249,7 +311,7 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
             {
                 x: 0,
                 y: "+=200",
-                rotateZ: 0
+                rotateZ: 0,
             },
             "fadeOut3",
         )
@@ -266,9 +328,16 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
         .add(
             ".l6",
             {
-                x: -900,
-                y: 200,
-                scale: 1.5
+                left: "-150%",
+                top: ["-5%", "15%"],
+                scale: 1.3,
+            },
+            "both-photo-ready",
+        )
+        .add(
+            ".bela-info",
+            {
+                opacity: [0, 0, 1],
             },
             "both-photo-ready",
         )
@@ -285,9 +354,24 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
         .add(
             ".l6",
             {
-                x: 800,
-                y: [200, 0, 200],
-                scale: [1.5, 1, 1.5]
+                left: "15%",
+                top: ["15%", "-5%", "15%"],
+                scale: [1.3, 1, 1.3],
+            },
+            "bela-done",
+        )
+        .add(
+            ".bela-info",
+            {
+                opacity: 0,
+                duration: 100,
+            },
+            "bela-done",
+        )
+        .add(
+            ".habib-info",
+            {
+                opacity: [0, 0, 0, 1],
             },
             "bela-done",
         )
@@ -299,18 +383,26 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
                 duration: 100,
             },
             "habib-ready",
-        ).
-        label("habib-done")
+        )
+        .label("habib-done")
         .add(
             ".l6",
             {
-                x: 0,
-                y: 0,
+                left: "-60%",
+                top: "-5%",
                 scale: 1,
             },
             "habib-done",
-        ).
-        label("back-to-both")
+        )
+        .add(
+            ".habib-info",
+            {
+                opacity: 0,
+                duration: 100,
+            },
+            "habib-done",
+        )
+        .label("back-to-both")
         .add(
             ".l1",
             {

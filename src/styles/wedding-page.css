@@ -1,6 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant:wght@100;300;400");
+
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
 @font-face {
@@ -63,6 +68,10 @@ body {
   justify-content: center;
 }
 
+.title-content{
+  opacity: 0;
+}
+
 .cover-frame{
   width: 95%;
   height: auto;
@@ -86,7 +95,7 @@ body {
 
 .scroll-area {
   width: 100%;
-  height: 800lvh;
+  height: 1200lvh;
   align-items: flex-start;
 }
 
@@ -149,4 +158,87 @@ section.spacer {
   left: 50% !important;
   margin-top: 0 !important;
   margin-bottom: 0.4em !important;
+}
+
+.surah-text{
+  width: 70%;
+}
+
+.surah-text p{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  font-size: 4.5cqi;
+  font-weight: 300;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.couple-info{
+  font-family: 'Cormorant', serif;
+  position: absolute;
+  font-weight: 400;
+  width: min(100vw, 50vh);
+  height: 100%;
+  container-type: size;
+}
+
+.bela-info{
+  opacity: 0;
+  font-size: 3cqi;
+  top: 27%;
+  left: 20%;
+  position: absolute;
+  text-align: center;
+}
+
+.bela-info p{
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+.bela-info-name{
+  font-family: 'palmaton';
+  font-size: 8cqi;
+  margin-top: 0.2em !important;
+  margin-bottom: 0.5em !important;
+}
+
+.bela-info-detail{
+  font-style: italic;
+  margin-bottom: 0.7em !important;
+}
+
+.habib-info{
+  opacity: 0;
+  font-size: 3cqi;
+  top: 27%;
+  left:8%;
+  position: absolute;
+  text-align: center;
+}
+
+.habib-info p{
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+.habib-info-name{
+  font-family: 'palmaton';
+  font-size: 8cqi;
+  margin-top: 0.2em !important;
+  margin-bottom: 0em !important;
+}
+
+.habib-info-habib-y{
+  font-family: 'palmaton';
+  font-size: 8cqi;
+  margin-top: -0.2em !important;
+  margin-bottom: 0.5em !important;
+}
+
+.habib-info-detail{
+  font-style: italic;
+  margin-bottom: 0.7em !important;
 }
