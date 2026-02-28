@@ -17,6 +17,7 @@ import ImageGallery from "../components/ImageGallery.astro";
 import Countdown from "../components/Countdown.astro";
 import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
 import WeddingGift from "../components/WeddingGift.astro";
+import ThankYou from "../components/ThankYou.astro";
 ---
 
 <section class="scroll-area">
@@ -110,6 +111,8 @@ import WeddingGift from "../components/WeddingGift.astro";
 
 <WeddingGift />
 
+<ThankYou />
+
 <script type="module" client:load>
     import {
         utils,
@@ -194,6 +197,15 @@ import WeddingGift from "../components/WeddingGift.astro";
 
     
     animate([".countdown-content"], {
+        opacity: [0, 1],
+        duration: 2000,
+        ease: "inOutQuad",
+        autoplay: onScroll({
+            container: ".scroll-container",
+        }),
+    });
+
+    animate([".thank-you-content"], {
         opacity: [0, 1],
         duration: 2000,
         ease: "inOutQuad",

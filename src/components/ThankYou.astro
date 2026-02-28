@@ -1,0 +1,86 @@
+---
+import { Image } from "astro:assets";
+import ThankYouBackground from "../images/Images/ThankYouBackground.png";
+---
+
+<div class="thank-you-wrapper">
+    <div class="thank-you-inner">
+        <Image src={ThankYouBackground} class="thank-you-background" alt="loading"/>
+        <div class="thank-you-content">
+            <div class="thank-you-inner-content">
+                <p class="thank-you-title">Thank you!</p>
+                <p class="thank-you-description">
+                    It would be our greatest joy and honor to have you with us
+                    on our special day.
+                </p>
+                <p class="thank-you-note">made by hy.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .thank-you-wrapper {
+        width: 100%;
+        background-color: #517470;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .thank-you-inner {
+        width: min(100vw, 50vh);
+        height: auto;
+        position: relative;
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .thank-you-background {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .thank-you-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        color: #ffffff;
+        text-align: right;
+        container-type: size;
+    }
+
+    .thank-you-inner-content {
+        width: 40%;
+        margin-right: 5%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .thank-you-title {
+        width: 100%;
+        font-family: "palmaton", serif;
+        font-size: 9cqi;
+        font-weight: 300;
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+    }
+
+    .thank-you-description {
+        width: 100%;
+        font-size: 2.5cqi;
+        font-weight: 100;
+    }
+
+    .thank-you-note {
+        width: 100%;
+        font-size: 2.5cqi;
+        font-weight: 100;
+    }
+</style>
