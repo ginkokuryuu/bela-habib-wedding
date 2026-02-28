@@ -1,0 +1,337 @@
+---
+// ============================================
+// CONFIGURE YOUR WEDDING DATE HERE
+// ============================================
+const weddingDate = "2026-04-04"; // Format: YYYY-MM-DD
+const weddingTime = "11:30"; // Format: HH:MM (24-hour)
+const weddingDuration = 1; // Duration in hours
+const venueName = "Paseban Sena Ballroom";
+const venueAddress = "Jl. Suroyo No.50-52, Sukabumi, Kec. Mayangan, Kota Probolinggo, Jawa Timur 67219";
+// ============================================
+
+const timezone = "+07:00";
+const targetDate = `${weddingDate}T${weddingTime}:00${timezone}`;
+
+// Convert to UTC for Google Calendar (GMT+7 = UTC-7)
+function toUTC(dateStr: string, timeStr: string, offsetHours: number): string {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const [hours, minutes] = timeStr.split(":").map(Number);
+
+  const date = new Date(year, month - 1, day, hours, minutes);
+  date.setHours(date.getHours() - offsetHours);
+
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  const hh = String(date.getHours()).padStart(2, "0");
+  const min = String(date.getMinutes()).padStart(2, "0");
+
+  return `${yyyy}${mm}${dd}T${hh}${min}00`;
+}
+
+const startUTC = toUTC(weddingDate, weddingTime, 7);
+const endDate = new Date(`${weddingDate}T${weddingTime}:00+07:00`);
+endDate.setHours(endDate.getHours() + weddingDuration);
+const endTimeStr = endDate.toTimeString().slice(0, 5);
+const endUTC = toUTC(weddingDate, endTimeStr, 7);
+
+const venue = `${venueName}, ${venueAddress}`;
+const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+of+Bela+%26+Habib&dates=${startUTC}/${endUTC}&details=We+can't+wait+to+celebrate+with+you!&location=${encodeURIComponent(venue)}`;
+
+const googleMapsUrl = "https://maps.app.goo.gl/rqAPYG6UXJ1UriMP6";
+
+const formattedDate = (() => {
+  const date = new Date(`${weddingDate}T${weddingTime}:00${timezone}`);
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const dayName = days[date.getDay()];
+  const day = date.getDate();
+  const monthName = months[date.getMonth()];
+  const year = date.getFullYear();
+  return `${dayName}, ${day} ${monthName} ${year}`;
+})();
+
+const formattedTime = `${weddingTime} - ${endTimeStr} WIB`;
+---
+
+<div class="countdown-wrapper">
+  <div class="countdown-inner">
+    <div class="countdown-content">
+      <h2 class="countdown-title">The Big Day</h2>
+      <div class="countdown-timer" id="countdownTimer" data-target={targetDate}>
+        <div class="countdown-item">
+          <span class="countdown-value" id="countdownDays">00</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="countdownHours">00</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="countdownMinutes">00</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-separator">:</div>
+        <div class="countdown-item">
+          <span class="countdown-value" id="countdownSeconds">00</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+      <div id="countdownContent">
+        <a
+          href={googleCalendarUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="save-the-date-btn">Save the Date</a
+        >
+        <div class="venue-section">
+          <p class="venue-title">Venue</p>
+          <p class="venue-name">{venueName}</p>
+          <p class="venue-address">{venueAddress}</p>
+          <p class="venue-date">{formattedDate}</p>
+          <p class="venue-time">{formattedTime}</p>
+          <a
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="venue-map-btn">Google Maps</a
+          >
+        </div>
+      </div>
+      <p class="countdown-message" id="countdownMessage" style="display: none;">
+        The Wedding has begun!
+      </p>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const timer = document.getElementById("countdownTimer");
+    const message = document.getElementById("countdownMessage");
+    const content = document.getElementById("countdownContent");
+    const daysEl = document.getElementById("countdownDays");
+    const hoursEl = document.getElementById("countdownHours");
+    const minutesEl = document.getElementById("countdownMinutes");
+    const secondsEl = document.getElementById("countdownSeconds");
+
+    if (!timer || !daysEl || !hoursEl || !minutesEl || !secondsEl) {
+      return;
+    }
+
+    const target = timer.dataset.target;
+    if (!target) {
+      return;
+    }
+
+    const targetTime = new Date(target).getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetTime - now;
+
+      if (distance < 0) {
+        if (timer) timer.style.display = "none";
+        if (content) content.style.display = "none";
+        if (message) message.style.display = "block";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+      );
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      daysEl.textContent = String(days).padStart(2, "0");
+      hoursEl.textContent = String(hours).padStart(2, "0");
+      minutesEl.textContent = String(minutes).padStart(2, "0");
+      secondsEl.textContent = String(seconds).padStart(2, "0");
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
+</script>
+
+<style>
+  .countdown-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #517470;
+  }
+
+  .countdown-inner {
+    width: min(100vw, 50vh);
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #efefef;
+    padding-top: 10%;
+    padding-bottom: 5%;
+    container-type: inline-size;
+  }
+
+  .countdown-content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #countdownContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .countdown-title {
+    text-align: center;
+    color: #232323;
+    font-family: "palmaton", serif;
+    font-size: 9cqi;
+    font-weight: 400;
+    margin: 0 0 5% 0;
+  }
+
+  .countdown-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2cqi;
+  }
+
+  .save-the-date-btn {
+    display: inline-block;
+    margin-top: 5%;
+    padding: 2cqi 4cqi;
+    background-color: #3a5a40;
+    color: #efefef;
+    text-decoration: none;
+    font-size: 2cqi;
+    font-weight: 300;
+    border-radius: 5cqi;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease;
+  }
+
+  .save-the-date-btn:hover {
+    background-color: #3d5652;
+    transform: scale(1.02);
+  }
+
+  .venue-section {
+    margin-top: 6%;
+    padding-top: 6%;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    width: 100%;
+  }
+
+  .venue-title {
+    font-family: 'palmaton', serif;
+    font-size: 6cqi;
+    font-weight: 400;
+    color: #232323;
+    margin: 0 0 4% 0;
+  }
+
+  .venue-name {
+    font-size: 3cqi;
+    font-weight: 400;
+    color: #232323;
+    margin: 0 0 1% 0;
+  }
+
+  .venue-address {
+    font-size: 2cqi;
+    color: #666;
+    margin: 0 0 3% 0;
+    line-height: 1.4;
+  }
+
+  .venue-date {
+    font-size: 2.5cqi;
+    color: #232323;
+    margin: 0 0 1% 0;
+  }
+
+  .venue-time {
+    font-size: 2.5cqi;
+    color: #666;
+    margin: 0 0 4% 0;
+  }
+
+  .venue-map-btn {
+    display: inline-block;
+    padding: 2cqi 4cqi;
+    background-color: #3a5a40;
+    color: #efefef;
+    text-decoration: none;
+    font-size: 2cqi;
+    font-weight: 300;
+    border-radius: 5cqi;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease;
+  }
+
+  .venue-map-btn:hover {
+    background-color: #3d5652;
+    transform: scale(1.02);
+  }
+
+  .countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .countdown-value {
+    font-size: 8cqi;
+    font-weight: bold;
+    color: #232323;
+    line-height: 1;
+  }
+
+  .countdown-label {
+    font-size: 2.5cqi;
+    color: #666;
+    margin-top: 0.5cqi;
+  }
+
+  .countdown-separator {
+    font-size: 8cqi;
+    font-weight: bold;
+    color: #232323;
+    margin-bottom: 3cqi;
+  }
+
+  .countdown-message {
+    font-size: 5cqi;
+    font-weight: bold;
+    color: #232323;
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .countdown-value {
+      font-size: 12cqi;
+    }
+    .countdown-label {
+      font-size: 3cqi;
+    }
+    .countdown-separator {
+      font-size: 12cqi;
+    }
+  }
+</style>

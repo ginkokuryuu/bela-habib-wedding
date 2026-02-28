@@ -14,6 +14,7 @@ import CoverFlower1 from "../images/Images/CoverFlower1.png";
 import CoverFlower2 from "../images/Images/CoverFlower2.png";
 
 import ImageGallery from "../components/ImageGallery.astro";
+import Countdown from "../components/Countdown.astro";
 import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
 ---
 
@@ -89,6 +90,8 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
     </div>
 </section>
 
+<Countdown />
+
 <ImageGallery />
 
 <RSVPMessageBoard />
@@ -158,6 +161,16 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
     });
 
     animate([".messages-section"], {
+        opacity: [0, 1],
+        duration: 2000,
+        ease: "inOutQuad",
+        autoplay: onScroll({
+            container: ".scroll-container",
+        }),
+    });
+
+    
+    animate([".countdown-content"], {
         opacity: [0, 1],
         duration: 2000,
         ease: "inOutQuad",
