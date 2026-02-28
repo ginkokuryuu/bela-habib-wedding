@@ -1,0 +1,216 @@
+---
+// ============================================
+// CONFIGURE BANK ACCOUNTS HERE
+// ============================================
+const bankAccounts = [
+  {
+    bankName: "BNI",
+    accountNumber: "1352671222",
+    accountHolder: "Nur Muhammad Husnul Habib Yahya",
+  },
+  {
+    bankName: "BNI",
+    accountNumber: "1795830483",
+    accountHolder: "Delfitri Salsabela Budianti",
+  },
+];
+// ============================================
+---
+
+<div class="gift-wrapper">
+  <div class="gift-inner">
+    <div class="gift-content">
+      <h2 class="gift-title">Wedding Gift</h2>
+      <p class="gift-description">
+        With all due respect, for guests who wish to send their thoughtful
+        gifts, you may do so via the bank account below:
+      </p>
+      <button id="eAmplopBtn" class="e-amplop-btn">E-Amplop</button>
+      <div id="bankAccounts" class="bank-accounts" style="display: none;">
+        {
+          bankAccounts.map((account) => (
+            <div class="bank-account">
+              <p class="bank-name">{account.bankName}</p>
+              <div class="account-row">
+                <p class="account-number">{account.accountNumber}</p>
+                <button class="copy-btn" data-copy={account.accountNumber}>
+                  COPY
+                </button>
+              </div>
+              <p class="account-holder">{account.accountHolder}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p id="copySuccess" class="copy-success" style="display: none;">
+        Copied!
+      </p>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const eAmplopBtn = document.getElementById("eAmplopBtn");
+    const bankAccounts = document.getElementById("bankAccounts");
+    const copySuccess = document.getElementById("copySuccess");
+    const copyButtons = document.querySelectorAll(".copy-btn");
+
+    if (eAmplopBtn && bankAccounts) {
+      eAmplopBtn.addEventListener("click", function () {
+        eAmplopBtn.style.display = "none";
+        bankAccounts.style.display = "block";
+      });
+    }
+
+    copyButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const textToCopy = this.getAttribute("data-copy");
+        navigator.clipboard.writeText(textToCopy).then(function () {
+          if (copySuccess) {
+            copySuccess.style.display = "block";
+            setTimeout(function () {
+              copySuccess.style.display = "none";
+            }, 2000);
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  .gift-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #517470;
+  }
+
+  .gift-inner {
+    width: min(100vw, 50vh);
+    max-width: 100%;
+    background-color: #efefef;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gift-content {
+    width: 90%;
+    padding: 8% 0%;
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gift-title {
+    text-align: center;
+    color: #232323;
+    font-family: "palmaton", serif;
+    font-size: 9cqi;
+    font-weight: 400;
+    margin: 0 0 5% 0;
+  }
+
+  .gift-description {
+    text-align: center;
+    color: #666;
+    font-size: 2.5cqi;
+    margin: 0 0 6% 0;
+    line-height: 1.5;
+  }
+
+  .e-amplop-btn {
+    display: inline-block;
+    padding: 2.5cqi 5cqi;
+    background-color: #517470;
+    color: #efefef;
+    text-decoration: none;
+    font-size: 3cqi;
+    font-weight: 400;
+    border: none;
+    border-radius: 5cqi;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease;
+  }
+
+  .e-amplop-btn:hover {
+    background-color: #3d5652;
+    transform: scale(1.02);
+  }
+
+  .bank-accounts {
+    width: 100%;
+  }
+
+  .bank-account {
+    background-color: #f5f5f5;
+    padding: 4% 5%;
+    border-radius: 2cqi;
+    margin-bottom: 4%;
+  }
+
+  .bank-name {
+    font-size: 3.5cqi;
+    font-weight: 400;
+    color: #232323;
+    margin: 0 0 2% 0;
+  }
+
+  .account-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2%;
+  }
+
+  .account-number {
+    font-size: 2.5cqi;
+    color: #232323;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .copy-btn {
+    padding: 1cqi 2cqi;
+    background-color: #517470;
+    color: #efefef;
+    border: none;
+    border-radius: 1cqi;
+    font-size: 1.8cqi;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .copy-btn:hover {
+    background-color: #3d5652;
+  }
+
+  .account-holder {
+    font-size: 2cqi;
+    color: #666;
+    margin: 0;
+  }
+
+  .copy-success {
+    color: #517470;
+    font-size: 2cqi;
+    font-weight: 500;
+    margin-top: 3%;
+  }
+
+  @media (max-width: 600px) {
+    .gift-description {
+      font-size: 3.5cqi;
+    }
+    .gift-title {
+      font-size: 10cqi;
+    }
+  }
+</style>

@@ -16,6 +16,7 @@ import CoverFlower2 from "../images/Images/CoverFlower2.png";
 import ImageGallery from "../components/ImageGallery.astro";
 import Countdown from "../components/Countdown.astro";
 import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
+import WeddingGift from "../components/WeddingGift.astro";
 ---
 
 <section class="scroll-area">
@@ -107,6 +108,8 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
 
 <RSVPMessageBoard />
 
+<WeddingGift />
+
 <script type="module" client:load>
     import {
         utils,
@@ -172,6 +175,15 @@ import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
     });
 
     animate([".messages-section"], {
+        opacity: [0, 1],
+        duration: 2000,
+        ease: "inOutQuad",
+        autoplay: onScroll({
+            container: ".scroll-container",
+        }),
+    });
+
+    animate([".gift-content"], {
         opacity: [0, 1],
         duration: 2000,
         ease: "inOutQuad",
