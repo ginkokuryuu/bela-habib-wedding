@@ -1,5 +1,5 @@
 import { initializeApp, type FirebaseApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, startAfter, getDocs, Timestamp, type DocumentData, type QueryDocumentSnapshot } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, limit, startAfter, getDocs, Timestamp, type DocumentData, type QueryDocumentSnapshot, doc, deleteDoc } from 'firebase/firestore';
 
 // Firebase configuration from environment variables
 const firebaseConfig = {
@@ -24,5 +24,5 @@ export function initializeFirebase(config?: typeof firebaseConfig) {
   return { app, db };
 }
 
-export { db, collection, addDoc, onSnapshot, query, orderBy, limit, startAfter, getDocs, Timestamp };
+export { db, collection, addDoc, onSnapshot, query, orderBy, limit, startAfter, getDocs, Timestamp, doc, deleteDoc };
 export type { DocumentData, QueryDocumentSnapshot };
