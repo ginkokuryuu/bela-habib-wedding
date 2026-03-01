@@ -96,59 +96,62 @@ const imageList = Object.entries(images).map(([path, module]: [string, any]) => 
     
     // ========== INFINITE SCROLL SETUP ==========
     let isHandlingScroll = false;
-    let lastScrollLeft = 0;
     let scrollCheckInterval: number | null = null;
+    let lastJumpTime = 0;
+    let oneSetWidth = 0;
+    
+    function calculateOneSetWidth() {
+      if (!galleryContainer || totalImages === 0) return 0;
+      const scrollWidth = galleryContainer.scrollWidth;
+      oneSetWidth = scrollWidth / 2; // We have 2 sets
+      return oneSetWidth;
+    }
     
     function handleInfiniteScroll() {
       if (!galleryContainer || isHandlingScroll) return;
 
-      const itemWidth = getItemWidth();
-      const scrollLeft = galleryContainer.scrollLeft;
-      const oneSetWidth = totalImages * itemWidth;
-      const threshold = itemWidth * 4;
-
-      // If scrolled near the end of set 2, jump back to same position in set 1
-      if (scrollLeft >= oneSetWidth - threshold) {
-        isHandlingScroll = true;
-        galleryContainer.scrollLeft = scrollLeft - oneSetWidth;
-        lastScrollLeft = galleryContainer.scrollLeft;
-        setTimeout(() => { isHandlingScroll = false; }, 100);
+      if (oneSetWidth === 0) {
+        calculateOneSetWidth();
       }
-      // If scrolled near the start of set 1, jump forward to same position in set 2
-      else if (scrollLeft <= threshold) {
+      
+      const scrollLeft = galleryContainer.scrollLeft;
+
+      // Only jump if enough time has passed since last jump
+      const now = Date.now();
+      if (now - lastJumpTime < 500) return;
+
+      // If scrolled past the end of set 2, jump back to set 1
+      if (scrollLeft >= oneSetWidth * 1.5) {
         isHandlingScroll = true;
+        lastJumpTime = now;
+        galleryContainer.scrollLeft = scrollLeft - oneSetWidth;
+        setTimeout(() => { isHandlingScroll = false; }, 300);
+      }
+      // If scrolled near the start of set 1, jump forward to set 2
+      else if (scrollLeft <= 20) {
+        isHandlingScroll = true;
+        lastJumpTime = now;
         galleryContainer.scrollLeft = scrollLeft + oneSetWidth;
-        lastScrollLeft = galleryContainer.scrollLeft;
-        setTimeout(() => { isHandlingScroll = false; }, 100);
-      } else {
-        lastScrollLeft = scrollLeft;
+        setTimeout(() => { isHandlingScroll = false; }, 300);
       }
     }
     
     // Set initial scroll position (after layout is ready)
     setTimeout(() => {
       if (galleryContainer) {
-        const itemWidth = getItemWidth();
-        const initialPosition = itemWidth * 5; // Start a few items in so backward scroll works
+        calculateOneSetWidth();
+        // Start at the beginning of set 2, slightly offset
+        const initialPosition = oneSetWidth + 50;
         galleryContainer.scrollLeft = initialPosition;
-        lastScrollLeft = initialPosition;
       }
     }, 100);
     
-    // Start interval to check scroll position (runs every 200ms)
-    // This avoids interfering with smooth scroll/momentum
+    // Start interval to check scroll position frequently during scrolling
     function startScrollCheck() {
       if (scrollCheckInterval) return;
       scrollCheckInterval = window.setInterval(() => {
-        if (!galleryContainer) return;
-        const currentScroll = galleryContainer.scrollLeft;
-        // Only check if scroll has settled (not moving)
-        if (currentScroll === lastScrollLeft) {
-          handleInfiniteScroll();
-        } else {
-          lastScrollLeft = currentScroll;
-        }
-      }, 200);
+        handleInfiniteScroll();
+      }, 100); // Check every 100ms during all scrolling
     }
     
     startScrollCheck();
