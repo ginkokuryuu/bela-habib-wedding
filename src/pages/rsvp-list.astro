@@ -1,0 +1,687 @@
+---
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSVP List - Bela & Habib Wedding</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f0e8 0%, #e8e0d5 100%);
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .header {
+        text-align: center;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .header h1 {
+        font-family: 'Palatino', 'Book Antiqua', serif;
+        color: #4a4a4a;
+        font-size: 2.2rem;
+        font-weight: 400;
+        margin-bottom: 0.5rem;
+      }
+
+      .header p {
+        color: #7a7a7a;
+      }
+
+      .header-line {
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #848b79, transparent);
+        margin: 1rem auto;
+      }
+
+      .stats {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .stat-card {
+        background: linear-gradient(145deg, #ffffff 0%, #f9f7f4 100%);
+        padding: 1.5rem 2rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        min-width: 140px;
+        border: 1px solid rgba(132, , 0.139, 1212);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .stat-card .number {
+        font-size: 2.2rem;
+        font-weight: 300;
+        color: #4a4a4a;
+        line-height: 1;
+      }
+
+      .stat-card .label {
+        color: #848b79;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 0.5rem;
+      }
+
+      .stat-card.attending .number {
+        color: #6b8e6b;
+      }
+
+      .stat-card.not-attending .number {
+        color: #a67c7c;
+      }
+
+      .controls {
+        background: linear-gradient(145deg, #ffffff 0%, #f9f7f4 100%);
+        padding: 1.25rem 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        margin-bottom: 1.5rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+        border: 1px solid rgba(132, 139, 121, 0.1);
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 0.7rem 1rem;
+        border: 1px solid rgba(132, 139, 121, 0.25);
+        border-radius: 10px;
+        font-size: 0.9rem;
+        background: #faf9f7;
+        transition: all 0.3s ease;
+      }
+
+      .search-box input:focus {
+        outline: none;
+        border-color: #848b79;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(132, 139, 121, 0.1);
+      }
+
+      .filter-box {
+        display: flex;
+        gap: 0.4rem;
+        background: #f5f3ef;
+        padding: 0.3rem;
+        border-radius: 10px;
+      }
+
+      .filter-btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        background: transparent;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        color: #6a6a6a;
+        transition: all 0.2s ease;
+      }
+
+      .filter-btn:hover {
+        color: #4a4a4a;
+      }
+
+      .filter-btn.active {
+        background: #848b79;
+        color: white;
+        box-shadow: 0 2px 6px rgba(132, 139, 121, 0.3);
+      }
+
+      .sort-box select {
+        padding: 0.7rem 2.2rem 0.7rem 0.9rem;
+        border: 1px solid rgba(132, 139, 121, 0.25);
+        border-radius: 10px;
+        font-size: 0.85rem;
+        background: #faf9f7;
+        cursor: pointer;
+        appearance: none;
+        min-width: 140px;
+      }
+
+      .sort-box select:focus {
+        outline: none;
+        border-color: #848b79;
+        background-color: #fff;
+      }
+
+      .search-box {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+      }
+
+      .search-box input:focus {
+        outline: none;
+        border-color: #848b79;
+      }
+
+      .filter-box {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .filter-btn {
+        padding: 0.75rem 1.5rem;
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+      }
+
+      .filter-btn:hover {
+        background: #f5f5f5;
+      }
+
+      .filter-btn.active {
+        background: #848b79;
+        color: white;
+        border-color: #848b79;
+      }
+
+      .sort-box {
+        position: relative;
+      }
+
+      .sort-box select {
+        padding: 0.75rem 2rem 0.75rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        background: white;
+        cursor: pointer;
+        appearance: none;
+        min-width: 160px;
+      }
+
+      .sort-box select:focus {
+        outline: none;
+        border-color: #848b79;
+      }
+
+      .sort-box::after {
+        content: "▼";
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.625rem;
+        color: #666;
+        pointer-events: none;
+      }
+
+      .table-container {
+        background: linear-gradient(145deg, #ffffff 0%, #f9f7f4 100%);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        border: 1px solid rgba(132, 139, 121, 0.15);
+        padding: 2%;
+        margin-bottom: 5%;
+      }
+
+      .table-container table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+      }
+
+      .table-container th {
+        background: linear-gradient(135deg, #848b79 0%, #6b7366 100%);
+        color: white;
+        padding: 1rem 1.25rem;
+        text-align: left;
+        font-weight: 500;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border: none;
+      }
+
+      .table-container th:first-child {
+        border-radius: 12px 0 0 12px;
+      }
+
+      .table-container th:last-child {
+        border-radius: 0 12px 12px 0;
+      }
+
+      .table-container td {
+        padding: 1.25rem 1.25rem;
+        background: #fff;
+        border-top: 1px solid #f5f3ef;
+        border-bottom: 1px solid #f5f3ef;
+      }
+
+      .table-container td:first-child {
+        border-left: 1px solid #f5f3ef;
+        border-radius: 12px 0 0 12px;
+      }
+
+      .table-container td:last-child {
+        border-right: 1px solid #f5f3ef;
+        border-radius: 0 12px 12px 0;
+      }
+
+      .table-container tbody tr {
+        transition: all 0.25s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+
+      .table-container tbody tr:hover td {
+        background: #faf9f7;
+      }
+
+      .table-container tbody tr:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        transform: translateY(-1px);
+      }
+
+      .table-container tbody tr td:first-child {
+        border-left: 3px solid transparent;
+      }
+
+      .table-container tbody tr:hover td:first-child {
+        border-left-color: #848b79;
+      }
+
+      .table-container .name-cell {
+        font-weight: 600;
+        color: #4a4a4a;
+      }
+
+      .table-container .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      .table-container .status.attending {
+        background: linear-gradient(135deg, #e8f5e9 0%, #d4e8d4 100%);
+        color: #4a6b4a;
+      }
+
+      .table-container .status.not-attending {
+        background: linear-gradient(135deg, #faf2f2 0%, #f5e6e6 100%);
+        color: #8b5a5a;
+      }
+
+      .table-container .guest-count {
+        font-weight: 500;
+        color: #5a5a5a;
+      }
+
+      .table-container .message-cell {
+        max-width: 280px;
+        color: #666;
+        font-size: 0.85rem;
+        line-height: 1.5;
+        font-style: italic;
+      }
+
+      .table-container .timestamp {
+        color: #999;
+        font-size: 0.75rem;
+        white-space: nowrap;
+      }
+
+      .status.attending {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      .status.not-attending {
+        background: #ffebee;
+        color: #c62828;
+      }
+
+      .status-icon {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      .guest-count {
+        font-weight: 500;
+        color: #333;
+      }
+
+      .message-cell {
+        max-width: 300px;
+        white-space: pre-wrap;
+        color: #555;
+        font-size: 0.875rem;
+      }
+
+      .timestamp {
+        color: #888;
+        font-size: 0.875rem;
+        white-space: nowrap;
+      }
+
+      .table-container .no-data {
+        text-align: center;
+        padding: 3rem;
+        color: #666;
+      }
+
+      .table-container .loading {
+        text-align: center;
+        padding: 3rem;
+        color: #666;
+      }
+
+      .table-container .error {
+        text-align: center;
+        padding: 3rem;
+        color: #c62828;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Guest Book</h1>
+        <div class="header-line"></div>
+        <p>Bela & Habib - April 4, 2026</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="number" id="totalCount">-</div>
+          <div class="label">Total Responses</div>
+        </div>
+        <div class="stat-card attending">
+          <div class="number" id="attendingCount">-</div>
+          <div class="label">Attending</div>
+        </div>
+        <div class="stat-card attending">
+          <div class="number" id="totalGuests">-</div>
+          <div class="label">Total Guests</div>
+        </div>
+        <div class="stat-card not-attending">
+          <div class="number" id="notAttendingCount">-</div>
+          <div class="label">Not Attending</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search by name..." />
+        </div>
+        <div class="filter-box">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="yes">Attending</button>
+          <button class="filter-btn" data-filter="no">Not Attending</button>
+        </div>
+        <div class="sort-box">
+          <select id="sortSelect">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="attending">Attending First</option>
+            <option value="not-attending">Not Attending First</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Guests</th>
+              <th>Message</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr>
+              <td colspan="5" class="loading">Loading...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      import { initializeFirebase, collection, query, orderBy, getDocs } from '../lib/firebase';
+
+      // Initialize Firebase
+      const { db } = initializeFirebase();
+      const rsvpsCollection = collection(db, 'rsvps');
+
+        let allData = [];
+
+        function formatDate(timestamp) {
+          if (!timestamp) return "-";
+          const date = timestamp.toDate();
+          return date.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        }
+
+        function escapeHtml(text) {
+          const div = document.createElement("div");
+          div.textContent = text || "";
+          return div.innerHTML;
+        }
+
+        function sortData(data) {
+          const sortValue = document.getElementById("sortSelect").value;
+          const sorted = [...data];
+
+          switch (sortValue) {
+            case "newest":
+              sorted.sort((a, b) => {
+                if (!a.timestamp || !b.timestamp) return 0;
+                return (
+                  b.timestamp.toDate().getTime() -
+                  a.timestamp.toDate().getTime()
+                );
+              });
+              break;
+            case "oldest":
+              sorted.sort((a, b) => {
+                if (!a.timestamp || !b.timestamp) return 0;
+                return (
+                  a.timestamp.toDate().getTime() -
+                  b.timestamp.toDate().getTime()
+                );
+              });
+              break;
+            case "attending":
+              sorted.sort((a, b) => {
+                if (a.attending === b.attending) {
+                  if (!a.timestamp || !b.timestamp) return 0;
+                  return (
+                    b.timestamp.toDate().getTime() -
+                    a.timestamp.toDate().getTime()
+                  );
+                }
+                return b.attending ? 1 : -1;
+              });
+              break;
+            case "not-attending":
+              sorted.sort((a, b) => {
+                if (a.attending === b.attending) {
+                  if (!a.timestamp || !b.timestamp) return 0;
+                  return (
+                    b.timestamp.toDate().getTime() -
+                    a.timestamp.toDate().getTime()
+                  );
+                }
+                return a.attending ? 1 : -1;
+              });
+              break;
+          }
+
+          return sorted;
+        }
+
+        function renderTable(data) {
+          const tbody = document.getElementById("tableBody");
+
+          if (data.length === 0) {
+            tbody.innerHTML =
+              '<tr><td colspan="5" class="no-data">No responses found</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = data
+            .map(
+              (item) => `
+          <tr>
+            <td class="name-cell">${escapeHtml(item.name)}</td>
+            <td>
+              <span class="status ${item.attending ? "attending" : "not-attending"}">
+                <span class="status-icon"></span>
+                ${item.attending ? "Attending" : "Not Attending"}
+              </span>
+            </td>
+            <td class="guest-count">${item.attending ? item.guestCount || "-" : "-"}</td>
+            <td class="message-cell">${escapeHtml(item.message)}</td>
+            <td class="timestamp">${formatDate(item.timestamp)}</td>
+          </tr>
+        `,
+            )
+            .join("");
+        }
+
+        function updateStats(data) {
+          const total = data.length;
+          const attending = data.filter((d) => d.attending).length;
+          const notAttending = total - attending;
+          const totalGuests = data.reduce((sum, d) => sum + (d.attending ? (d.guestCount || 1) : 0), 0);
+
+          document.getElementById("totalCount").textContent = total;
+          document.getElementById("attendingCount").textContent = attending;
+          document.getElementById("totalGuests").textContent = totalGuests;
+          document.getElementById("notAttendingCount").textContent =
+            notAttending;
+        }
+
+        function filterAndSortData() {
+          const searchTerm = document
+            .getElementById("searchInput")
+            .value.toLowerCase();
+          const activeFilter =
+            document.querySelector(".filter-btn.active").dataset.filter;
+
+          let filtered = [...allData];
+
+          if (activeFilter === "yes") {
+            filtered = filtered.filter((d) => d.attending);
+          } else if (activeFilter === "no") {
+            filtered = filtered.filter((d) => !d.attending);
+          }
+
+          if (searchTerm) {
+            filtered = filtered.filter((d) =>
+              d.name.toLowerCase().includes(searchTerm),
+            );
+          }
+
+          const sorted = sortData(filtered);
+          renderTable(sorted);
+        }
+
+        async function loadData() {
+          try {
+
+            const q = query(rsvpsCollection, orderBy("timestamp", "desc"));
+            const snapshot = await getDocs(q);
+
+            if (snapshot.empty) {
+              document.getElementById("tableBody").innerHTML =
+                '<tr><td colspan="5" class="no-data">No RSVPs yet. Check if there is data in your Firestore "rsvps" collection.</td></tr>';
+              updateStats([]);
+              return;
+            }
+
+            allData = snapshot.docs.map((doc) => {
+              return {
+                id: doc.id,
+                ...doc.data(),
+              };
+            });
+
+            updateStats(allData);
+            renderTable(allData);
+          } catch (error) {
+            document.getElementById("tableBody").innerHTML =
+              `<tr><td colspan="5" class="error">Failed to load data: ${error.message}</td></tr>`;
+          }
+        }
+
+        document
+          .getElementById("searchInput")
+          .addEventListener("input", filterAndSortData);
+
+        document.querySelectorAll(".filter-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document
+              .querySelectorAll(".filter-btn")
+              .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            filterAndSortData();
+          });
+        });
+
+        document
+          .getElementById("sortSelect")
+          .addEventListener("change", filterAndSortData);
+
+        loadData();
+    </script>
+  </body>
+</html>
