@@ -49,7 +49,7 @@ import ThankYou from "../components/ThankYou.astro";
         <div class="cover">
             <div class="title-container title-content">
                 <div class="title-text">
-                    <p class="invitee-name">Dear Guest, you are invited to</p>
+                    <p class="invitee-name" id="inviteeName">Dear Guest, you are invited to</p>
                     <p>The wedding of</p>
                     <p class="wedding-name bela">Bela</p>
                     <p class="wedding-name and">&</p>
@@ -112,6 +112,23 @@ import ThankYou from "../components/ThankYou.astro";
 <WeddingGift />
 
 <ThankYou />
+
+<script is:inline>
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const toName = params.get('To');
+    if (toName) {
+      const inviteeEl = document.getElementById('inviteeName');
+      if (inviteeEl) {
+        inviteeEl.textContent = decodeURIComponent(toName) + ', you are invited to';
+      }
+      const rsvpNameInput = document.getElementById('guestName');
+      if (rsvpNameInput) {
+        rsvpNameInput.value = decodeURIComponent(toName);
+      }
+    }
+  })();
+</script>
 
 <script type="module" client:load>
     import {

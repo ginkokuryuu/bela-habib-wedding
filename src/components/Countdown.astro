@@ -3,11 +3,20 @@
 // CONFIGURE YOUR WEDDING DATE HERE
 // ============================================
 const weddingDate = "2026-04-04"; // Format: YYYY-MM-DD
-const weddingTime = "11:30"; // Format: HH:MM (24-hour)
-const weddingDuration = 1; // Duration in hours
 const venueName = "Paseban Sena Ballroom";
 const venueAddress = "Jl. Suroyo No.50-52, Sukabumi, Kec. Mayangan, Kota Probolinggo, Jawa Timur 67219";
+
+// Session times - configure your session splits here
+const sessions = [
+  { startTime: "11:30", endTime: "13:00" },
+  { startTime: "13:00", endTime: "14:30" }
+];
 // ============================================
+
+// Default session for server-side rendering
+const defaultSession = sessions[0];
+const weddingTime = defaultSession.startTime;
+const endTimeStr = defaultSession.endTime;
 
 const timezone = "+07:00";
 const targetDate = `${weddingDate}T${weddingTime}:00${timezone}`;
@@ -30,9 +39,6 @@ function toUTC(dateStr: string, timeStr: string, offsetHours: number): string {
 }
 
 const startUTC = toUTC(weddingDate, weddingTime, 7);
-const endDate = new Date(`${weddingDate}T${weddingTime}:00+07:00`);
-endDate.setHours(endDate.getHours() + weddingDuration);
-const endTimeStr = endDate.toTimeString().slice(0, 5);
 const endUTC = toUTC(weddingDate, endTimeStr, 7);
 
 const venue = `${venueName}, ${venueAddress}`;
@@ -58,7 +64,12 @@ const formattedTime = `${weddingTime} - ${endTimeStr} WIB`;
   <div class="countdown-inner">
     <div class="countdown-content">
       <h2 class="countdown-title">The Big Day</h2>
-      <div class="countdown-timer" id="countdownTimer" data-target={targetDate}>
+      <div class="countdown-timer" id="countdownTimer" 
+           data-wedding-date={weddingDate}
+           data-session1-start={sessions[0].startTime} 
+           data-session1-end={sessions[0].endTime}
+           data-session2-start={sessions[1].startTime} 
+           data-session2-end={sessions[1].endTime}>
         <div class="countdown-item">
           <span class="countdown-value" id="countdownDays">00</span>
           <span class="countdown-label">Days</span>
@@ -84,14 +95,15 @@ const formattedTime = `${weddingTime} - ${endTimeStr} WIB`;
           href={googleCalendarUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="save-the-date-btn">Save the Date</a
+          class="save-the-date-btn"
+          id="saveDateBtn">Save the Date</a
         >
         <div class="venue-section">
           <p class="venue-title">Venue</p>
           <p class="venue-name">{venueName}</p>
           <p class="venue-address">{venueAddress}</p>
-          <p class="venue-date">{formattedDate}</p>
-          <p class="venue-time">{formattedTime}</p>
+          <p class="venue-date" id="venueDate">{formattedDate}</p>
+          <p class="venue-time" id="venueTime">{formattedTime}</p>
           <a
             href={googleMapsUrl}
             target="_blank"
@@ -109,6 +121,10 @@ const formattedTime = `${weddingTime} - ${endTimeStr} WIB`;
 
 <script is:inline>
   (function () {
+    // Get session from URL parameter (default to 1)
+    const urlParams = new URLSearchParams(window.location.search);
+    const session = urlParams.get('Session') === '2' ? '2' : '1';
+
     const timer = document.getElementById("countdownTimer");
     const message = document.getElementById("countdownMessage");
     const content = document.getElementById("countdownContent");
@@ -116,16 +132,47 @@ const formattedTime = `${weddingTime} - ${endTimeStr} WIB`;
     const hoursEl = document.getElementById("countdownHours");
     const minutesEl = document.getElementById("countdownMinutes");
     const secondsEl = document.getElementById("countdownSeconds");
+    const venueTimeEl = document.getElementById("venueTime");
+    const saveDateBtn = document.getElementById("saveDateBtn");
 
     if (!timer || !daysEl || !hoursEl || !minutesEl || !secondsEl) {
       return;
     }
 
-    const target = timer.dataset.target;
-    if (!target) {
+    // Get session times from data attributes
+    const weddingDate = timer.dataset.weddingDate;
+    const sessionKey = 'session' + session;
+    const startTime = timer.dataset[sessionKey + 'Start'];
+    const endTime = timer.dataset[sessionKey + 'End'];
+
+    if (!weddingDate || !startTime || !endTime) {
       return;
     }
 
+    // Update venue time display
+    if (venueTimeEl) {
+      venueTimeEl.textContent = startTime + ' - ' + endTime + ' WIB';
+    }
+
+    // Update Google Calendar link
+    if (saveDateBtn) {
+      // Use local time format for Google Calendar (GMT+7)
+      function formatLocalTime(dateStr, timeStr) {
+        const [year, month, day] = dateStr.split("-");
+        const [hours, minutes] = timeStr.split(":");
+        return `${year}${month}${day}T${hours}${minutes}00`;
+      }
+
+      const startLocal = formatLocalTime(weddingDate, startTime);
+      const endLocal = formatLocalTime(weddingDate, endTime);
+      const venue = "Paseban Sena Ballroom, Jl. Suroyo No.50-52, Sukabumi, Kec. Mayangan, Kota Probolinggo, Jawa Timur 67219";
+      const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+of+Bela+%26+Habib&dates=${startLocal}/${endLocal}&details=We+can't+wait+to+celebrate+with+you!&location=${encodeURIComponent(venue)}`;
+      saveDateBtn.href = googleCalendarUrl;
+    }
+
+    // Set countdown target
+    const targetDateStr = timer.dataset.weddingDate;
+    const target = `${targetDateStr}T${startTime}:00+07:00`;
     const targetTime = new Date(target).getTime();
 
     function updateCountdown() {

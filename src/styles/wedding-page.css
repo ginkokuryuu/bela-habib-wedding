@@ -95,6 +95,11 @@ body {
   height: auto;
 }
 
+.invitee-name{
+  padding: 0 10%;
+  align-self: center;
+}
+
 .scroll-area {
   width: 100%;
   height: 1200lvh;
