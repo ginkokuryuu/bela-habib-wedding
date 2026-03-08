@@ -21,6 +21,7 @@ import Countdown from "../components/Countdown.astro";
 import RSVPMessageBoard from "../components/RSVPMessageBoard.astro";
 import WeddingGift from "../components/WeddingGift.astro";
 import ThankYou from "../components/ThankYou.astro";
+import BackgroundMusic from "../components/BackgroundMusic.astro";
 ---
 
 <head>
@@ -45,6 +46,7 @@ import ThankYou from "../components/ThankYou.astro";
 </head>
 
 <section class="scroll-area">
+    <BackgroundMusic />
     <div class="content-size-fitter">
         <div class="content-container">
             <Image src={SecondPhoto} class="photo-2 layer l6" alt="loading" />
@@ -69,6 +71,35 @@ import ThankYou from "../components/ThankYou.astro";
             <Image src={OvalFrame} class="oval-frame layer l2" alt="loading" />
             <Image src={FirstPhoto} class="photo-1 layer l1" alt="loading" />
             <Image src={Frame} class="frame-1 layer l1" alt="loading" />
+        </div>
+        <div class="couple-info">
+            <div class="bela-info">
+                <p class="bela-info-name">dr. Delfitri Salsabela Budianti</p>
+                <p class="bela-info-detail">The First Daughter of</p>
+                <p class="bela-info-parent">Mr. Arief Budijanto (alm)</p>
+                <p class="bela-info-parent">& Mrs. Suciati, S.Pd., M.Pd.</p>
+            </div>
+            <div class="habib-info">
+                <p class="habib-info-name">Nur Muhammad Husnul</p>
+                <p class="habib-info-habib-y">Habib Yahya</p>
+                <p class="habib-info-detail">The Fourth Son of</p>
+                <p class="habib-info-parent">Mr. Yahya Ali (alm)</p>
+                <p class="habib-info-parent">& Mrs. Titin Hartini Noer</p>
+            </div>
+        </div>
+        <div class="animated-wedding-info">
+            <div class="awi-date">
+                <p class="awi-date-day">Saturday</p>
+                <p class="awi-date-date">April 4, 2026</p>
+            </div>
+            <div class="awi-place">
+                <p class="awi-place-at">at</p>
+                <p class="awi-place-name">Paseban Sena Ballroom</p>
+                <p class="awi-place-city">Probolinggo, East Java</p>
+            </div>
+            <div class="awi-info">
+                <p class="awi-more-info">more info below</p>
+            </div>
         </div>
         <div class="cover">
             <div class="title-container title-content">
@@ -107,35 +138,8 @@ import ThankYou from "../components/ThankYou.astro";
                 class="cover-right-flower"
                 alt="loading"
             />
-        </div>
-        <div class="couple-info">
-            <div class="bela-info">
-                <p class="bela-info-name">dr. Delfitri Salsabela Budianti</p>
-                <p class="bela-info-detail">The First Daughter of</p>
-                <p class="bela-info-parent">Mr. Arief Budijanto (alm)</p>
-                <p class="bela-info-parent">& Mrs. Suciati, S.Pd., M.Pd.</p>
-            </div>
-            <div class="habib-info">
-                <p class="habib-info-name">Nur Muhammad Husnul</p>
-                <p class="habib-info-habib-y">Habib Yahya</p>
-                <p class="habib-info-detail">The Fourth Son of</p>
-                <p class="habib-info-parent">Mr. Yahya Ali (alm)</p>
-                <p class="habib-info-parent">& Mrs. Titin Hartini Noer</p>
-            </div>
-        </div>
-        <div class="animated-wedding-info">
-            <div class="awi-date">
-                <p class="awi-date-day">Saturday</p>
-                <p class="awi-date-date">April 4, 2026</p>
-            </div>
-            <div class="awi-place">
-                <p class="awi-place-at">at</p>
-                <p class="awi-place-name">Paseban Sena Ballroom</p>
-                <p class="awi-place-city">Probolinggo, East Java</p>
-            </div>
-            <div class="awi-info">
-                <p class="awi-more-info">more info below</p>
-            </div>
+            
+            <button class="open-invitation-btn" id="playButton">Open Invitation</button>
         </div>
     </div>
 </section>
@@ -152,6 +156,18 @@ import ThankYou from "../components/ThankYou.astro";
 
 <script is:inline>
   (function() {
+    if (history.scrollRestoration) {
+      history.scrollRestoration = 'manual';
+    }
+    document.body.classList.add('scroll-locked');
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    window.addEventListener('load', function() {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
     const params = new URLSearchParams(window.location.search);
     const toName = params.get('To');
     if (toName) {
@@ -226,9 +242,7 @@ import ThankYou from "../components/ThankYou.astro";
         opacity: [0, 1],
         duration: 2000,
         ease: "inOutQuad",
-        autoplay: onScroll({
-            container: ".scroll-container",
-        }),
+        autoplay: true,
     });
 
     animate([".cover-right-flower"], {
@@ -236,9 +250,7 @@ import ThankYou from "../components/ThankYou.astro";
         right: ["-50%", "0%"],
         duration: 2000,
         ease: "inOutQuad",
-        autoplay: onScroll({
-            container: ".scroll-container",
-        }),
+        autoplay: true,
     });
 
     animate([".cover-left-flower"], {
@@ -246,9 +258,7 @@ import ThankYou from "../components/ThankYou.astro";
         left: ["-50%", "0%"],
         duration: 2000,
         ease: "inOutQuad",
-        autoplay: onScroll({
-            container: ".scroll-container",
-        }),
+        autoplay: true,
     });
 
     animate([".messages-section"], {
@@ -288,6 +298,20 @@ import ThankYou from "../components/ThankYou.astro";
         }),
     });
 
+    let coverAnimation = animate([".cover"], {
+        top: "-100%",
+        duration: 500,
+        ease: "inOutQuad",
+        autoplay: false,
+    });
+
+    const playButton = document.getElementById('playButton');
+    playButton.addEventListener('click', () => {
+        document.body.classList.remove('scroll-locked');
+        coverAnimation.restart();
+        window.dispatchEvent(new CustomEvent('startMusic'));
+    });
+
     createTimeline({
         defaults: {
             ease: "easeInOutSine",
@@ -301,21 +325,12 @@ import ThankYou from "../components/ThankYou.astro";
         }),
     })
         .add(
-            ".cover",
-            {
-                top: "-100%",
-                duration: 100,
-            },
-            0,
-        )
-        .label("coverDone")
-        .add(
             ".l1",
             {
                 z: "+=0",
                 duration: 100,
             },
-            "coverDone",
+            0,
         )
         .label("wait1")
         .add(

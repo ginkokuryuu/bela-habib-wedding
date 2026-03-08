@@ -7,13 +7,18 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', sans-serif;
-  
+
   --calculated-width: min(100vw, 50vh);
 }
 
+body.scroll-locked {
+  overflow: hidden;
+  height: 100vh;
+}
+
 @font-face {
-    font-family: palmaton;
-    src: url(../fonts/Palmaton.ttf);
+  font-family: palmaton;
+  src: url(../fonts/Palmaton.ttf);
 }
 
 .content-size-fitter {
@@ -71,23 +76,25 @@ body {
   justify-content: center;
 }
 
-.title-text{
+.title-text {
   width: 100%;
 }
 
-.title-content{
+.title-content {
   opacity: 0;
 }
 
-.cover{
+.cover {
   overflow: hidden;
+  container-type: size;
 }
 
-.cover-frame{
+.cover-frame {
   width: 70%;
   height: auto;
   position: absolute;
 }
+
 .cover-top-flower {
   position: absolute;
   top: 0;
@@ -105,24 +112,26 @@ body {
 .cover-right-flower {
   position: absolute;
   right: 0%;
-  top: 8%;
-  width: auto;
-  height: 70%;
+  top: 50%;
+  width: 35%;
+  height: auto;
+  transform: translate(0%, -60%);
 }
 
 .cover-left-flower {
   position: absolute;
   left: 0;
-  top: 12%;
-  width: auto;
-  height: 70%;
+  top: 50%;
+  width: 28%;
+  height: auto;
+  transform: translate(0%, -56%);
 }
 
-.invitee-name{
+.invitee-name {
   align-self: center;
 }
 
-.wedding-of{
+.wedding-of {
   font-size: 6cqi !important;
   font-weight: 300 !important;
 }
@@ -149,7 +158,7 @@ section.spacer {
   width: 150%;
 }
 
-.oval-frame{
+.oval-frame {
   width: 200%;
 }
 
@@ -170,6 +179,7 @@ section.spacer {
   margin-bottom: 0.2em;
   font-family: Inter, sans-serif;
 }
+
 .wedding-name {
   font-size: 35cqi !important;
   font-family: Inspiration, sans-serif !important;
@@ -177,29 +187,53 @@ section.spacer {
   margin-bottom: 0 !important;
 }
 
-.wedding-name.bela{
+.wedding-name.bela {
   right: 12% !important;
   margin-top: 0.3em !important;
   margin-bottom: 0 !important;
 }
 
-.wedding-name.and{
+.wedding-name.and {
   font-size: 20cqi !important;
   margin-top: -0.2em !important;
   margin-bottom: -0.2em !important;
 }
 
-.wedding-name.habib{
+.wedding-name.habib {
   left: 12% !important;
   margin-top: 0 !important;
   margin-bottom: 0.3em !important;
 }
 
-.surah-text{
+.surah-text {
   width: 70%;
 }
 
-.surah-text p{
+.open-invitation-btn {
+  width: 30%;
+  position: absolute;
+  display: inline-block;
+  padding: 2.5cqi 5cqi;
+  background-color: #3a5a40;
+  color: #efefef;
+  text-decoration: none;
+  font-size: 2.5cqi;
+  font-weight: 400;
+  border: none;
+  border-radius: 5cqi;
+  cursor: pointer;
+  bottom: 8%;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.open-invitation-btn:hover {
+  background-color: #3d5652;
+  transform: scale(1.02);
+}
+
+.surah-text p {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -210,7 +244,7 @@ section.spacer {
   font-family: 'Montserrat', sans-serif;
 }
 
-.couple-info{
+.couple-info {
   font-family: 'Cormorant', serif;
   position: absolute;
   font-weight: 400;
@@ -219,7 +253,7 @@ section.spacer {
   container-type: size;
 }
 
-.bela-info{
+.bela-info {
   opacity: 0;
   font-size: 4cqi;
   top: 20%;
@@ -230,26 +264,26 @@ section.spacer {
   text-align: right;
 }
 
-.bela-info p{
+.bela-info p {
   margin-top: 0.1em;
   margin-bottom: 0.1em;
 }
 
-.bela-info-name{
+.bela-info-name {
   font-family: 'palmaton';
   font-size: 10cqi;
   margin-top: 0.2em !important;
   margin-bottom: 0.5em !important;
 }
 
-.bela-info-detail{
+.bela-info-detail {
   font-style: italic;
   font-weight: 300;
   font-size: 3cqi;
   margin-bottom: 0.7em !important;
 }
 
-.habib-info{
+.habib-info {
   opacity: 0;
   font-size: 4cqi;
   top: 20%;
@@ -260,26 +294,26 @@ section.spacer {
   text-align: left;
 }
 
-.habib-info p{
+.habib-info p {
   margin-top: 0.1em;
   margin-bottom: 0.1em;
 }
 
-.habib-info-name{
+.habib-info-name {
   font-family: 'palmaton';
   font-size: 10cqi;
   margin-top: 0.2em !important;
   margin-bottom: 0em !important;
 }
 
-.habib-info-habib-y{
+.habib-info-habib-y {
   font-family: 'palmaton';
   font-size: 10cqi;
   margin-top: -0.2em !important;
   margin-bottom: 0.5em !important;
 }
 
-.habib-info-detail{
+.habib-info-detail {
   font-style: italic;
   font-weight: 300;
   font-size: 3cqi;
@@ -287,7 +321,7 @@ section.spacer {
 }
 
 
-.animated-wedding-info{
+.animated-wedding-info {
   font-family: 'Cormorant', serif;
   position: absolute;
   font-weight: 400;
@@ -299,14 +333,14 @@ section.spacer {
   justify-content: center;
 }
 
-.awi-date{
+.awi-date {
   position: absolute;
   text-align: center;
   top: 18%;
   opacity: 0;
 }
 
-.awi-date-day{
+.awi-date-day {
   font-family: 'palmaton';
   font-size: 12cqi;
   font-weight: 400;
@@ -314,47 +348,47 @@ section.spacer {
   margin-block-end: 0em !important;
 }
 
-.awi-date-date{
+.awi-date-date {
   font-size: 5cqi;
   margin-block-start: 0.5em !important;
   margin-block-end: 0.5em !important;
 }
 
-.awi-place{
+.awi-place {
   position: absolute;
   text-align: center;
   top: 18%;
   opacity: 0;
 }
 
-.awi-place p{
+.awi-place p {
   margin-block-start: 0em !important;
   margin-block-end: 0em !important;
 }
 
-.awi-place-at{
+.awi-place-at {
   font-size: 5cqi;
 }
 
-.awi-place-name{
+.awi-place-name {
   font-family: 'palmaton';
   font-size: 11cqi;
   font-weight: 400;
 }
 
-.awi-place-city{
+.awi-place-city {
   font-size: 4cqi;
   font-style: italic;
 }
 
-.awi-info{
+.awi-info {
   position: absolute;
   text-align: center;
   top: 18%;
   opacity: 0;
 }
 
-.awi-more-info{
+.awi-more-info {
   font-family: 'palmaton';
   font-size: 8cqi;
   font-weight: 300;
