@@ -102,17 +102,6 @@ import BackgroundMusic from "../components/BackgroundMusic.astro";
             </div>
         </div>
         <div class="cover">
-            <div class="title-container title-content">
-                <div class="title-text">
-                    <p class="invitee-name" id="inviteeName">Dear Guest, you are invited to</p>
-                    <p class="wedding-of">THE WEDDING OF</p>
-                    <p class="wedding-name bela">Bela</p>
-                    <p class="wedding-name and">&</p>
-                    <p class="wedding-name habib">Habib</p>
-                    <p>Saturday, 4.4.2026</p>
-                </div>
-            </div>
-
             <Image
                 src={NewFrameCover}
                 class="cover-frame title-content"
@@ -138,8 +127,19 @@ import BackgroundMusic from "../components/BackgroundMusic.astro";
                 class="cover-right-flower"
                 alt="loading"
             />
+            <div class="title-container title-content">
+                <div class="title-text">
+                    <p class="invitee-name" id="inviteeName">Dear Guest, you are invited to</p>
+                    <p class="wedding-of">THE WEDDING OF</p>
+                    <p class="wedding-name bela">Bela</p>
+                    <p class="wedding-name and">&</p>
+                    <p class="wedding-name habib">Habib</p>
+                    <p>Saturday, 4.4.2026</p>
+                    <button class="open-invitation-btn" id="playButton">Open Invitation</button>
+                </div>
+            </div>
+
             
-            <button class="open-invitation-btn" id="playButton">Open Invitation</button>
         </div>
     </div>
 </section>
@@ -466,8 +466,8 @@ import BackgroundMusic from "../components/BackgroundMusic.astro";
             ".l6",
             {
                 left: "-150%",
-                // top: "15%",
-                y: '+=250',
+                top: "15%",
+                // y: '+=250',
                 scale: 1.3,
             },
             "both-photo-ready",
@@ -493,8 +493,8 @@ import BackgroundMusic from "../components/BackgroundMusic.astro";
             ".l6",
             {
                 left: "15%",
-                // top: ["15%", "-5%", "15%"],
-                y: ['-=0', '-=250', '+=250'],
+                top: ["15%", "0%", "15%"],
+                // y: ['-=0', '-=250', '+=250'],
                 scale: [1.3, 1, 1.3],
             },
             "bela-done",
@@ -528,8 +528,8 @@ import BackgroundMusic from "../components/BackgroundMusic.astro";
             ".l6",
             {
                 left: "-60%",
-                // top: "-5%",
-                y: '-=250',
+                top: "0%",
+                // y: '-=250',
                 scale: 1,
             },
             "habib-done",
@@ -546,7 +546,8 @@ import BackgroundMusic from "../components/BackgroundMusic.astro";
         .add(
             ".l6",
             {
-                y: '+=200',
+                top: "15%",
+                // y: '+=200',
                 duration: 200,
             },
             "back-to-both",
@@ -633,7 +634,8 @@ import BackgroundMusic from "../components/BackgroundMusic.astro";
         .add(
             ".l6",
             {
-                y: '-=200',
+                top: "0%",
+                // y: '-=200',
                 duration: 200,
             },
             "info-done",
