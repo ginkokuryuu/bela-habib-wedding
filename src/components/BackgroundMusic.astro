@@ -6,7 +6,7 @@ import pauseIcon from "../images/Images/pauseIcon.png";
 const MUSIC_VOLUME = 0.3;
 ---
 
-<div class="music-control hidden">
+<div class="music-control">
     <button id="musicToggle" aria-label="Toggle Music">
         <Image src={playIcon} id="playIcon" alt="Play" />
         <Image src={pauseIcon} id="pauseIcon" alt="Pause" class="hidden" />
@@ -58,16 +58,11 @@ const MUSIC_VOLUME = 0.3;
     const playIcon = document.getElementById("playIcon");
     const pauseIcon = document.getElementById("pauseIcon");
     const toggleBtn = document.getElementById("musicToggle");
-    const musicControl = document.querySelector(".music-control");
 
     let isPlaying = false;
     let userPaused = false;
 
     audio.volume = MUSIC_VOLUME;
-
-    function showMusicControl() {
-        musicControl.classList.remove("hidden");
-    }
 
     function updateIcons() {
         if (isPlaying) {
@@ -94,7 +89,6 @@ const MUSIC_VOLUME = 0.3;
     toggleBtn.addEventListener("click", toggleMusic);
 
     function startMusic() {
-        showMusicControl();
         if (isPlaying) return;
         audio.play()
             .then(() => {
