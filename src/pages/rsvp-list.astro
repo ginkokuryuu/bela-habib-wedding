@@ -421,6 +421,66 @@
         padding: 3rem;
         color: #c62828;
       }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 1rem;
+        }
+
+        .header h1 {
+          font-size: 1.6rem;
+        }
+
+        .stats {
+          gap: 0.75rem;
+        }
+
+        .stat-card {
+          padding: 1rem;
+          min-width: 100px;
+          flex: 1 1 calc(50% - 0.5rem);
+        }
+
+        .stat-card .number {
+          font-size: 1.6rem;
+        }
+
+        .controls {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .search-box {
+          min-width: auto;
+        }
+
+        .filter-box {
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .filter-btn {
+          padding: 0.5rem 0.75rem;
+          font-size: 0.75rem;
+        }
+
+        .sort-box {
+          width: 100%;
+        }
+
+        .sort-box select {
+          width: 100%;
+        }
+
+        .table-container {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .table-container table {
+          min-width: 600px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -487,6 +547,7 @@
           </tbody>
         </table>
       </div>
+    </div>
     </div>
 
     <script>
