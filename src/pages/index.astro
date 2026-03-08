@@ -9,9 +9,12 @@ import SecondPhoto from "../images/Images/SecondPhoto.png";
 import Cloud from "../images/Images/Cloud.png";
 import OvalFrame from "../images/Images/OvalFrame.png";
 import GradientCircle from "../images/Images/GradientCircle.png";
-import CoverFrame from "../images/Images/CoverFrame.png";
-import CoverFlower1 from "../images/Images/CoverFlower1.png";
-import CoverFlower2 from "../images/Images/CoverFlower2.png";
+
+import NewFrameCover from "../images/Images/NewFrameCover.png";
+import CoverRightFlower from "../images/Images/CoverRightFlower.png";
+import CoverLeftFlower from "../images/Images/CoverLeftFlower.png";
+import CoverTopFlower from "../images/Images/CoverTopFlower.png";
+import CoverBottomFlower from "../images/Images/CoverBottomFlower.png";
 
 import ImageGallery from "../components/ImageGallery.astro";
 import Countdown from "../components/Countdown.astro";
@@ -71,7 +74,7 @@ import ThankYou from "../components/ThankYou.astro";
             <div class="title-container title-content">
                 <div class="title-text">
                     <p class="invitee-name" id="inviteeName">Dear Guest, you are invited to</p>
-                    <p>The wedding of</p>
+                    <p class="wedding-of">THE WEDDING OF</p>
                     <p class="wedding-name bela">Bela</p>
                     <p class="wedding-name and">&</p>
                     <p class="wedding-name habib">Habib</p>
@@ -80,18 +83,28 @@ import ThankYou from "../components/ThankYou.astro";
             </div>
 
             <Image
-                src={CoverFrame}
+                src={NewFrameCover}
                 class="cover-frame title-content"
                 alt="loading"
             />
             <Image
-                src={CoverFlower1}
-                class="cover-flower-1 title-content"
+                src={CoverTopFlower}
+                class="cover-top-flower title-content"
                 alt="loading"
             />
             <Image
-                src={CoverFlower2}
-                class="cover-flower-2 title-content"
+                src={CoverBottomFlower}
+                class="cover-bottom-flower title-content"
+                alt="loading"
+            />
+            <Image
+                src={CoverLeftFlower}
+                class="cover-left-flower"
+                alt="loading"
+            />
+            <Image
+                src={CoverRightFlower}
+                class="cover-right-flower"
                 alt="loading"
             />
         </div>
@@ -100,7 +113,7 @@ import ThankYou from "../components/ThankYou.astro";
                 <p class="bela-info-name">dr. Delfitri Salsabela Budianti</p>
                 <p class="bela-info-detail">The First Daughter of</p>
                 <p class="bela-info-parent">Mr. Arief Budijanto (alm)</p>
-                <p class="bela-info-parent">& Mrs. Suciati</p>
+                <p class="bela-info-parent">& Mrs. Suciati, S.Pd., M.Pd.</p>
             </div>
             <div class="habib-info">
                 <p class="habib-info-name">Nur Muhammad Husnul</p>
@@ -119,6 +132,9 @@ import ThankYou from "../components/ThankYou.astro";
                 <p class="awi-place-at">at</p>
                 <p class="awi-place-name">Paseban Sena Ballroom</p>
                 <p class="awi-place-city">Probolinggo, East Java</p>
+            </div>
+            <div class="awi-info">
+                <p class="awi-more-info">more info below</p>
             </div>
         </div>
     </div>
@@ -141,7 +157,7 @@ import ThankYou from "../components/ThankYou.astro";
     if (toName) {
       const inviteeEl = document.getElementById('inviteeName');
       if (inviteeEl) {
-        inviteeEl.textContent = decodeURIComponent(toName) + ', you are invited to';
+        inviteeEl.textContent = 'Dear ' + decodeURIComponent(toName) + ', you are invited to';
       }
       const rsvpNameInput = document.getElementById('guestName');
       if (rsvpNameInput) {
@@ -208,6 +224,26 @@ import ThankYou from "../components/ThankYou.astro";
 
     animate([".title-content"], {
         opacity: [0, 1],
+        duration: 2000,
+        ease: "inOutQuad",
+        autoplay: onScroll({
+            container: ".scroll-container",
+        }),
+    });
+
+    animate([".cover-right-flower"], {
+        opacity: [0, 1],
+        right: ["-50%", "0%"],
+        duration: 2000,
+        ease: "inOutQuad",
+        autoplay: onScroll({
+            container: ".scroll-container",
+        }),
+    });
+
+    animate([".cover-left-flower"], {
+        opacity: [0, 1],
+        left: ["-50%", "0%"],
         duration: 2000,
         ease: "inOutQuad",
         autoplay: onScroll({
@@ -554,12 +590,38 @@ import ThankYou from "../components/ThankYou.astro";
         )
         .label("place-done")
         .add(
+            ".awi-info",
+            {
+                opacity: 1,
+                duration: 200,
+            },
+            "place-done",
+        )
+        .label("info-ready")
+        .add(
+            "",
+            {
+                duration: 300,
+            },
+            "info-ready",
+        )
+        .label("info-delay")    
+        .add(
+            ".awi-info",
+            {
+                opacity: 0,
+                duration: 100,
+            },
+            "info-delay",
+        )
+        .label("info-done")
+        .add(
             ".l6",
             {
                 y: '-=200',
                 duration: 200,
             },
-            "place-done",
+            "info-done",
         )
         .label("animation-end")
         .add(

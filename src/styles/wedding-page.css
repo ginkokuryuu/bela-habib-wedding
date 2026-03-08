@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400");
 @import url("https://fonts.googleapis.com/css2?family=Cormorant:wght@100;300;400");
+@import url("https://fonts.googleapis.com/css2?family=Inspiration:wght@100;300;400");
 
 body {
   margin: 0;
@@ -63,41 +64,67 @@ body {
 .title-container {
   container-type: size;
   height: 100%;
-  width: 100%;
+  width: 70%;
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.title-text{
+  width: 100%;
+}
+
 .title-content{
   opacity: 0;
 }
 
+.cover{
+  overflow: hidden;
+}
+
 .cover-frame{
-  width: 95%;
+  width: 70%;
   height: auto;
   position: absolute;
 }
-.cover-flower-1 {
+.cover-top-flower {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 70%;
+  width: 100%;
   height: auto;
 }
 
-.cover-flower-2 {
+.cover-bottom-flower {
   position: absolute;
   bottom: 0;
-  right: 0;
-  width: 40%;
+  width: 100%;
   height: auto;
+}
+
+.cover-right-flower {
+  position: absolute;
+  right: 0%;
+  top: 8%;
+  width: auto;
+  height: 70%;
+}
+
+.cover-left-flower {
+  position: absolute;
+  left: 0;
+  top: 12%;
+  width: auto;
+  height: 70%;
 }
 
 .invitee-name{
-  padding: 0 10%;
   align-self: center;
+}
+
+.wedding-of{
+  font-size: 6cqi !important;
+  font-weight: 300 !important;
 }
 
 .scroll-area {
@@ -138,33 +165,34 @@ section.spacer {
 
 .title-text p {
   position: relative;
-  font-size: 2.5cqi;
+  font-size: 3.5cqi;
   margin-top: 0.2em;
   margin-bottom: 0.2em;
   font-family: Inter, sans-serif;
 }
 .wedding-name {
-  font-size: 15cqi !important;
-  font-family: palmaton !important;
+  font-size: 35cqi !important;
+  font-family: Inspiration, sans-serif !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
 
 .wedding-name.bela{
-  right: 50% !important;
-  margin-top: 0.4em !important;
+  right: 12% !important;
+  margin-top: 0.3em !important;
   margin-bottom: 0 !important;
 }
 
 .wedding-name.and{
-  margin-top: -0.5em !important;
-  margin-bottom: -0.5em !important;
+  font-size: 20cqi !important;
+  margin-top: -0.2em !important;
+  margin-bottom: -0.2em !important;
 }
 
 .wedding-name.habib{
-  left: 50% !important;
+  left: 12% !important;
   margin-top: 0 !important;
-  margin-bottom: 0.4em !important;
+  margin-bottom: 0.3em !important;
 }
 
 .surah-text{
@@ -317,4 +345,17 @@ section.spacer {
 .awi-place-city{
   font-size: 4cqi;
   font-style: italic;
+}
+
+.awi-info{
+  position: absolute;
+  text-align: center;
+  top: 18%;
+  opacity: 0;
+}
+
+.awi-more-info{
+  font-family: 'palmaton';
+  font-size: 8cqi;
+  font-weight: 300;
 }
