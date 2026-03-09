@@ -1,0 +1,270 @@
+---
+const session1Time = "11.30 - 13.00";
+const session2Time = "13.00 - 14.30";
+const weddingDate = "April 4 2026";
+const venue = "Paseban Sena Ballroom, Kota Probolinggo";
+const baseUrl = "https://bela-habib-wedding.date";
+---
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Invitation Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #517470 0%, #3d5a56 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #517470;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #517470;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .btn-generate {
+            background: #517470;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .btn-generate:hover {
+            background: #3d5a56;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(81, 116, 112, 0.3);
+        }
+
+        .btn-copy {
+            background: #caeec2;
+            color: #333;
+        }
+
+        .btn-copy:hover {
+            background: #b5e4ad;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(202, 238, 194, 0.3);
+        }
+
+        .btn-copy.copied {
+            background: #4caf50;
+            color: white;
+        }
+
+        .result-container {
+            display: none;
+            margin-top: 24px;
+        }
+
+        .result-container.show {
+            display: block;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #517470;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .result-text {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .copy-section {
+            margin-top: 16px;
+        }
+
+        .error {
+            color: #e53935;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Wedding Invitation Generator</h1>
+        
+        <div class="form-group">
+            <label for="guestName">Guest Name</label>
+            <input type="text" id="guestName" placeholder="Enter guest name" />
+            <div class="error" id="nameError">Please enter guest name</div>
+        </div>
+
+        <div class="form-group">
+            <label for="session">Session</label>
+            <select id="session">
+                <option value="1">Session 1 ({session1Time})</option>
+                <option value="2">Session 2 ({session2Time})</option>
+            </select>
+        </div>
+
+        <button class="btn btn-generate" id="generateBtn">Generate Invitation</button>
+
+        <div class="result-container" id="resultContainer">
+            <span class="result-label">Generated Invitation:</span>
+            <div class="result-text" id="resultText"></div>
+            <div class="copy-section">
+                <button class="btn btn-copy" id="copyBtn">Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script define:vars={{ session1Time, session2Time, weddingDate, venue, baseUrl }}>
+        const guestNameInput = document.getElementById('guestName');
+        const sessionSelect = document.getElementById('session');
+        const generateBtn = document.getElementById('generateBtn');
+        const resultContainer = document.getElementById('resultContainer');
+        const resultText = document.getElementById('resultText');
+        const copyBtn = document.getElementById('copyBtn');
+        const nameError = document.getElementById('nameError');
+
+        const sessionTimes = {
+            '1': session1Time,
+            '2': session2Time
+        };
+
+        function formatGuestName(name) {
+            return name.trim().replace(/\s+/g, '+');
+        }
+
+        function generateInvitation(guestName, session) {
+            const time = sessionTimes[session];
+            const guestNameFormatted = formatGuestName(guestName);
+            
+            return `Dear ${guestName},
+
+With all due respect, we would love to invite you to join and celebrate our wedding day. 
+
+Please check our invitation link bellow for full event details:
+
+${baseUrl}/?To=${guestNameFormatted}&Session=${session}
+
+🗓️ Date: ${weddingDate}
+⏰ Time: ${time}
+📍 Venue: ${venue}
+
+We look forward to celebrating this special moment with you. ❤️
+
+
+Best regards,
+Bela and Habib`;
+        }
+
+        generateBtn.addEventListener('click', () => {
+            const guestName = guestNameInput.value.trim();
+            
+            if (!guestName) {
+                nameError.classList.add('show');
+                return;
+            }
+            
+            nameError.classList.remove('show');
+            
+            const session = sessionSelect.value;
+            const invitation = generateInvitation(guestName, session);
+            
+            resultText.textContent = invitation;
+            resultContainer.classList.add('show');
+            
+            copyBtn.textContent = 'Copy to Clipboard';
+            copyBtn.classList.remove('copied');
+        });
+
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(resultText.textContent);
+                copyBtn.textContent = 'Copied!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy to Clipboard';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        });
+
+        guestNameInput.addEventListener('input', () => {
+            if (guestNameInput.value.trim()) {
+                nameError.classList.remove('show');
+            }
+        });
+    </script>
+</body>
