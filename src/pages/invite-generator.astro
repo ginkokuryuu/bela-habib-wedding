@@ -142,17 +142,6 @@ const baseUrl = "https://bela-habib-wedding.date";
         .copy-section {
             margin-top: 16px;
         }
-
-        .error {
-            color: #e53935;
-            font-size: 0.85rem;
-            margin-top: 6px;
-            display: none;
-        }
-
-        .error.show {
-            display: block;
-        }
     </style>
 </head>
 
@@ -163,7 +152,6 @@ const baseUrl = "https://bela-habib-wedding.date";
         <div class="form-group">
             <label for="guestName">Guest Name</label>
             <input type="text" id="guestName" placeholder="Enter guest name" />
-            <div class="error" id="nameError">Please enter guest name</div>
         </div>
 
         <div class="form-group">
@@ -174,9 +162,7 @@ const baseUrl = "https://bela-habib-wedding.date";
             </select>
         </div>
 
-        <button class="btn btn-generate" id="generateBtn">Generate Invitation</button>
-
-        <div class="result-container" id="resultContainer">
+        <div class="result-container show" id="resultContainer">
             <span class="result-label">Generated Invitation:</span>
             <div class="result-text" id="resultText"></div>
             <div class="copy-section">
@@ -188,11 +174,9 @@ const baseUrl = "https://bela-habib-wedding.date";
     <script define:vars={{ session1Time, session2Time, weddingDate, venue, baseUrl }}>
         const guestNameInput = document.getElementById('guestName');
         const sessionSelect = document.getElementById('session');
-        const generateBtn = document.getElementById('generateBtn');
         const resultContainer = document.getElementById('resultContainer');
         const resultText = document.getElementById('resultText');
         const copyBtn = document.getElementById('copyBtn');
-        const nameError = document.getElementById('nameError');
 
         const sessionTimes = {
             '1': session1Time,
@@ -202,6 +186,26 @@ const baseUrl = "https://bela-habib-wedding.date";
         function formatGuestName(name) {
             return name.trim().replace(/\s+/g, '+');
         }
+
+        function updateInvitation() {
+            const guestName = guestNameInput.value.trim();
+            
+            if (!guestName) {
+                resultContainer.classList.remove('show');
+                return;
+            }
+            
+            resultContainer.classList.add('show');
+            const session = sessionSelect.value;
+            const invitation = generateInvitation(guestName, session);
+            resultText.textContent = invitation;
+            
+            copyBtn.textContent = 'Copy to Clipboard';
+            copyBtn.classList.remove('copied');
+        }
+
+        guestNameInput.addEventListener('input', updateInvitation);
+        sessionSelect.addEventListener('change', updateInvitation);
 
         function generateInvitation(guestName, session) {
             const time = sessionTimes[session];
@@ -226,26 +230,6 @@ Best regards,
 Bela and Habib`;
         }
 
-        generateBtn.addEventListener('click', () => {
-            const guestName = guestNameInput.value.trim();
-            
-            if (!guestName) {
-                nameError.classList.add('show');
-                return;
-            }
-            
-            nameError.classList.remove('show');
-            
-            const session = sessionSelect.value;
-            const invitation = generateInvitation(guestName, session);
-            
-            resultText.textContent = invitation;
-            resultContainer.classList.add('show');
-            
-            copyBtn.textContent = 'Copy to Clipboard';
-            copyBtn.classList.remove('copied');
-        });
-
         copyBtn.addEventListener('click', async () => {
             try {
                 await navigator.clipboard.writeText(resultText.textContent);
@@ -261,10 +245,5 @@ Bela and Habib`;
             }
         });
 
-        guestNameInput.addEventListener('input', () => {
-            if (guestNameInput.value.trim()) {
-                nameError.classList.remove('show');
-            }
-        });
     </script>
 </body>
