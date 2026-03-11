@@ -64,6 +64,21 @@ body.scroll-locked {
   display: flex;
   align-items: center;
   justify-content: center;
+  container-type: size;
+}
+
+.title-warning{
+  visibility: hidden;
+}
+
+@supports (-moz-appearance: none) {
+  .title-warning{
+    font-size: 3cqi;
+    visibility: visible;
+    position: absolute;
+    top: 10%;
+    background-color: #ff4d4d;
+  }
 }
 
 .title-container {
